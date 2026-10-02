@@ -1,0 +1,76 @@
+name: Выкладка на Beget
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Две выкладки одновременно не запускаем
+concurrency:
+  group: deploy-beget
+  cancel-in-progress: false
+
+env:
+  # Что выкладываем. Пока сайт не открыт — только заглушка.
+  # Переключать на сайт — отдельным коммитом, когда ООО будет готово.
+  DEPLOY_DIR: stub
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка секретов
+        env:
+          BEGET_SSH_HOST: ${{ secrets.BEGET_SSH_HOST }}
+          BEGET_SSH_USER: ${{ secrets.BEGET_SSH_USER }}
+          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+          BEGET_SSH_KNOWN_HOSTS: ${{ secrets.BEGET_SSH_KNOWN_HOSTS }}
+          BEGET_DEPLOY_PATH: ${{ secrets.BEGET_DEPLOY_PATH }}
+        run: |
+          missing=""
+          for name in BEGET_SSH_HOST BEGET_SSH_USER BEGET_SSH_KEY BEGET_SSH_KNOWN_HOSTS BEGET_DEPLOY_PATH; do
+            [ -z "${!name}" ] && missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Не заданы секреты:$missing (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
+          # Защита от rsync --delete не в ту папку
+          case "$BEGET_DEPLOY_PATH" in
+            */public_html|*/public_html/) ;;
+            *) echo "::error::BEGET_DEPLOY_PATH должен заканчиваться на /public_html"; exit 1 ;;
+          esac
+
+      - name: Проверка noindex у заглушки
+        if: env.DEPLOY_DIR == 'stub'
+        run: |
+          grep -q 'name="robots" content="noindex' stub/index.html
+          grep -q '^Disallow: /$' stub/robots.txt
+
+      - name: Настройка SSH
+        env:
+          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+          BEGET_SSH_KNOWN_HOSTS: ${{ secrets.BEGET_SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$BEGET_SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$BEGET_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Выкладка через rsync
+        env:
+          BEGET_SSH_HOST: ${{ secrets.BEGET_SSH_HOST }}
+          BEGET_SSH_USER: ${{ secrets.BEGET_SSH_USER }}
+          BEGET_DEPLOY_PATH: ${{ secrets.BEGET_DEPLOY_PATH }}
+        run: |
+          rsync -rlvz --delete \
+            --exclude '.well-known/' \
+            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
+            "$DEPLOY_DIR/" "$BEGET_SSH_USER@$BEGET_SSH_HOST:${BEGET_DEPLOY_PATH%/}/"
+
+      - name: Удаление ключа
+        if: always()
+        run: rm -f ~/.ssh/id_deploy
