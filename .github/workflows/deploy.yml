@@ -23,24 +23,23 @@ jobs:
 
       - name: Проверка секретов
         env:
-          BEGET_SSH_HOST: ${{ secrets.BEGET_SSH_HOST }}
-          BEGET_SSH_USER: ${{ secrets.BEGET_SSH_USER }}
-          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
-          BEGET_SSH_KNOWN_HOSTS: ${{ secrets.BEGET_SSH_KNOWN_HOSTS }}
-          BEGET_DEPLOY_PATH: ${{ secrets.BEGET_DEPLOY_PATH }}
+          BEGET_FTP_HOST: ${{ secrets.BEGET_FTP_HOST }}
+          BEGET_FTP_USER: ${{ secrets.BEGET_FTP_USER }}
+          BEGET_FTP_PASSWORD: ${{ secrets.BEGET_FTP_PASSWORD }}
+          BEGET_FTP_DIR: ${{ secrets.BEGET_FTP_DIR }}
         run: |
           missing=""
-          for name in BEGET_SSH_HOST BEGET_SSH_USER BEGET_SSH_KEY BEGET_SSH_KNOWN_HOSTS BEGET_DEPLOY_PATH; do
+          for name in BEGET_FTP_HOST BEGET_FTP_USER BEGET_FTP_PASSWORD BEGET_FTP_DIR; do
             [ -z "${!name}" ] && missing="$missing $name"
           done
           if [ -n "$missing" ]; then
             echo "::error::Не заданы секреты:$missing (Settings → Secrets and variables → Actions)"
             exit 1
           fi
-          # Защита от rsync --delete не в ту папку
-          case "$BEGET_DEPLOY_PATH" in
+          # Защита от удаления файлов не в той папке
+          case "$BEGET_FTP_DIR" in
             */public_html|*/public_html/) ;;
-            *) echo "::error::BEGET_DEPLOY_PATH должен заканчиваться на /public_html"; exit 1 ;;
+            *) echo "::error::BEGET_FTP_DIR должен заканчиваться на /public_html"; exit 1 ;;
           esac
 
       - name: Проверка noindex у заглушки
@@ -49,28 +48,25 @@ jobs:
           grep -q 'name="robots" content="noindex' stub/index.html
           grep -q '^Disallow: /$' stub/robots.txt
 
-      - name: Настройка SSH
-        env:
-          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
-          BEGET_SSH_KNOWN_HOSTS: ${{ secrets.BEGET_SSH_KNOWN_HOSTS }}
-        run: |
-          install -d -m 700 ~/.ssh
-          printf '%s\n' "$BEGET_SSH_KEY" > ~/.ssh/id_deploy
-          chmod 600 ~/.ssh/id_deploy
-          printf '%s\n' "$BEGET_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+      - name: Установка lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Выкладка через rsync
+      - name: Выкладка по FTP
         env:
-          BEGET_SSH_HOST: ${{ secrets.BEGET_SSH_HOST }}
-          BEGET_SSH_USER: ${{ secrets.BEGET_SSH_USER }}
-          BEGET_DEPLOY_PATH: ${{ secrets.BEGET_DEPLOY_PATH }}
+          BEGET_FTP_HOST: ${{ secrets.BEGET_FTP_HOST }}
+          BEGET_FTP_USER: ${{ secrets.BEGET_FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.BEGET_FTP_PASSWORD }}
+          BEGET_FTP_DIR: ${{ secrets.BEGET_FTP_DIR }}
         run: |
-          rsync -rlvz --delete \
-            --exclude '.well-known/' \
-            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
-            "$DEPLOY_DIR/" "$BEGET_SSH_USER@$BEGET_SSH_HOST:${BEGET_DEPLOY_PATH%/}/"
-
-      - name: Удаление ключа
-        if: always()
-        run: rm -f ~/.ssh/id_deploy
+          # Пароль передаётся через переменную окружения, а не в командной строке.
+          # ftp:ssl-force — пароль не уйдёт открытым текстом, если сервер не даст TLS.
+          lftp -u "$BEGET_FTP_USER" --env-password "$BEGET_FTP_HOST" <<EOF
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 30
+          mirror --reverse --delete --verbose --exclude-glob .well-known/ "$DEPLOY_DIR/" "${BEGET_FTP_DIR%/}/"
+          bye
+          EOF
