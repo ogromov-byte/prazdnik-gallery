@@ -4,7 +4,7 @@
 Чистые HTML/CSS/JS, без сборщиков, фреймворков и npm.
 
 - Домен: prazdnik-gallery.ru
-- Хостинг: Beget (shared-хостинг, выкладка по SSH)
+- Хостинг: Beget (shared-хостинг, выкладка по FTP)
 - Продавец: отдельное ООО, которое ещё регистрируется
 
 ## Статус: сайт НЕ публичный
@@ -41,11 +41,11 @@ CLAUDE.md               — этот файл
 ## Выкладка
 
 - Пуш в `main` запускает `.github/workflows/deploy.yml`: содержимое папки
-  `DEPLOY_DIR` (сейчас `stub`) копируется через rsync в `public_html` на Beget.
-  rsync работает с `--delete`: всё, чего нет в папке, на хостинге удаляется
-  (кроме `.well-known/`).
-- Доступы — только через GitHub Secrets: `BEGET_SSH_HOST`, `BEGET_SSH_USER`,
-  `BEGET_SSH_KEY`, `BEGET_SSH_KNOWN_HOSTS`, `BEGET_DEPLOY_PATH`.
+  `DEPLOY_DIR` (сейчас `stub`) копируется по FTP (lftp mirror, только с TLS)
+  в `public_html` на Beget. Выкладка идёт с `--delete`: всё, чего нет в папке,
+  на хостинге удаляется (кроме `.well-known/`).
+- Доступы — только через GitHub Secrets: `BEGET_FTP_HOST`, `BEGET_FTP_USER`,
+  `BEGET_FTP_PASSWORD`, `BEGET_FTP_DIR`.
   Ключи, пароли и логины в репозиторий не коммитить никогда.
 - Пока на домене заглушка, у неё обязательно должны оставаться meta
   `noindex`, `robots.txt` с `Disallow: /` и `.htaccess` с `X-Robots-Tag`.
