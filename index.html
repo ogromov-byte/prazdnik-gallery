@@ -354,6 +354,22 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
  }
 }
 </style>
+<style id="collection-knee-line-20261013">
+/* Visual knee-line calibration for approved images in the first collection row.
+   Future photos: retain the shared image box and calibrate each pose individually. */
+@media(min-width:1051px){
+ .collection-grid .product-card[href="snezhinka.html"] .product-image img{
+  transform:translateY(0px)!important;
+ }
+ .collection-grid .product-card[href="zaychik.html"] .product-image img{
+  transform:translateY(-12px) scale(1.08)!important;
+  transform-origin:center bottom!important;
+ }
+ .collection-grid .product-card[href="moryak.html"] .product-image img{
+  transform:translateY(-30px)!important;
+ }
+}
+</style>
 </head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
