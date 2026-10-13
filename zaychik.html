@@ -511,4 +511,9 @@ for(const id of ['photo-prev','photo-next','mode-photo','mode-360']){
 }
 render();
 })();
+</script><style id="hide-spin-counter-final">
+body .product-hero .photo-view.rotation #photo-count{display:none!important;visibility:hidden!important}
+</style>
+<script id="hide-spin-counter-final-script">
+(()=>{const view=document.querySelector('.photo-view'),count=document.getElementById('photo-count');if(!view||!count)return;const refresh=()=>{const spin=view.classList.contains('rotation');count.style.setProperty('display',spin?'none':'inline','important');count.setAttribute('aria-hidden',String(spin));};new MutationObserver(refresh).observe(view,{attributes:true,attributeFilter:['class']});refresh();})();
 </script></body></html>
