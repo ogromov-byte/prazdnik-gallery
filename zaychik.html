@@ -586,7 +586,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
   const selected=stillIndex;
   const fallback=stills[selected];
   large.src=fallback;
-  const highres=fallback.replace(/\.webp$/,'-large.webp');
+  const highres=fallback.replace(/\.webp$/,'-large.jpg');
   const candidate=new Image();
   candidate.onload=()=>{if(dialog.open&&!spinMode&&stillIndex===selected)large.src=highres;};
   candidate.onerror=()=>{};
