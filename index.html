@@ -370,6 +370,55 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
  }
 }
 </style>
+<style id="mobile-one-figurine-per-row-20261013">
+/* Mobile collection: one large figurine on each row, preserving desktop. */
+@media(max-width:760px){
+ .collection-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:34px!important;
+ }
+ .collection-grid .product-card{
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+ }
+ .collection-grid .product-image{
+  height:clamp(430px,130vw,620px)!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  padding:20px 16px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+ }
+ .collection-grid .product-image img{
+  display:block!important;
+  height:100%!important;
+  width:auto!important;
+  max-height:100%!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  flex:none!important;
+  transform:none!important;
+ }
+ .collection-grid .product-card[href="zaychik.html"] .product-image{
+  overflow:visible!important;
+ }
+ .collection-grid .product-card[href="zaychik.html"] .product-image img{
+  transform:scale(1.15)!important;
+  transform-origin:center center!important;
+ }
+ .collection-grid .product-name{
+  display:block!important;
+  font-size:18px!important;
+  line-height:1.4!important;
+  margin-top:18px!important;
+ }
+}
+</style>
 </head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
