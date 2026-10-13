@@ -47,4 +47,8 @@ body[data-card-layout="warm"] .related-item img{height:480px;background:#eee7db}
 .photo-view.rotation .photo-count{display:none!important}
 
 /* Approved Rabbit emphasis in Recently Viewed only; keep the card geometry. */
-.recent-grid .recent-item[href="zaychik.html"] img{transform:scale(1.25);transform-origin:center center}
+.recent-grid .recent-item[href="zaychik.html"] img{transform:none!important;object-fit:contain;object-position:center center;padding:6px!important}
+
+/* Keep recent card boundaries intact while maximizing Rabbit artwork. */
+.recent-grid .recent-item[href="zaychik.html"]{overflow:hidden}
+.recent-grid .recent-item[href="zaychik.html"] img{height:480px!important;width:100%!important;box-sizing:border-box!important;max-width:100%!important}
