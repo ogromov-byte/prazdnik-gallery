@@ -20,7 +20,9 @@
       const image = document.createElement('img');
       image.src = product.src; image.alt = product.name; image.loading = 'lazy';
       const label = document.createElement('span'); label.textContent = product.name;
-      link.append(image, label); grid.append(link);
+      const frame = document.createElement('div'); frame.className = 'recent-image-frame';
+      frame.append(image);
+      link.append(frame, label); grid.append(link);
     });
     section.hidden = false;
   }
