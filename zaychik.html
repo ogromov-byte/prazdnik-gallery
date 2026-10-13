@@ -575,7 +575,23 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  frame.addEventListener('pointermove',e=>{if(!dragging||!spinMode)return;accum+=e.clientX-lastX;lastX=e.clientX;const steps=Math.trunc(accum/15);if(steps){spinIndex=(spinIndex-steps%24+24)%24;accum-=steps*15;paint()}});
  const stop=()=>dragging=false;frame.addEventListener('pointerup',stop);frame.addEventListener('pointercancel',stop);
  frame.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();(e.key==='ArrowLeft'?prev:next).click()}});
- zoom.onclick=e=>{e.preventDefault();const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / 4';dialog.showModal()};
+ zoom.onclick=e=>{
+  e.preventDefault();
+  const stage=document.getElementById('rabbit-lightbox-stage');
+  stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;
+  large.alt=img.alt;
+  document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;
+  dialog.showModal();
+  if(spinMode){large.src=img.src;return;}
+  const selected=stillIndex;
+  const fallback=stills[selected];
+  large.src=fallback;
+  const highres=fallback.replace(/\.webp$/,'-large.webp');
+  const candidate=new Image();
+  candidate.onload=()=>{if(dialog.open&&!spinMode&&stillIndex===selected)large.src=highres;};
+  candidate.onerror=()=>{};
+  candidate.src=highres;
+};
  large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};
  document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();
  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
