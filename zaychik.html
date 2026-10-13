@@ -397,7 +397,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
   const spin=Array.from({length:24},(_,i)=>`assets/zaychik/spin-${String(i+1).padStart(2,'0')}.webp`);
   let angle=0, dragging=false, previousX=0, accumulated=0, touchStartX=null;
   const preload=()=>spin.forEach(src=>{const img=new Image();img.src=src;});
-  const rotateBy=(delta)=>{angle=(angle+delta+spin.length)%spin.length;main.src=spin[angle]; main.alt=`Зайчик, вращение 360°, кадр ${angle+1} из 24`;counter.textContent=`360° · ${angle+1} / 24`;};
+  const rotateBy=(delta)=>{angle=(angle+delta+spin.length)%spin.length;main.src=spin[angle]; main.alt=`Зайчик, вращение 360°, кадр ${angle+1} из 24`;counter.textContent='';};
   const setActive=(rotate)=>{
     view.classList.toggle('rotation',rotate);
     modePhoto.classList.toggle('active',!rotate);
@@ -458,7 +458,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
   const spin=Array.from({length:24},(_,i)=>`assets/zaychik/spin-${String(i+1).padStart(2,'0')}.webp`);
   let angle=0, dragging=false, previousX=0, accumulated=0, touchStartX=null;
   const preload=()=>spin.forEach(src=>{const img=new Image();img.src=src;});
-  const rotateBy=(delta)=>{angle=(angle+delta+spin.length)%spin.length;main.src=spin[angle]; main.alt=`Зайчик, вращение 360°, кадр ${angle+1} из 24`;counter.textContent=`360° · ${angle+1} / 24`;};
+  const rotateBy=(delta)=>{angle=(angle+delta+spin.length)%spin.length;main.src=spin[angle]; main.alt=`Зайчик, вращение 360°, кадр ${angle+1} из 24`;counter.textContent='';};
   const setActive=(rotate)=>{
     view.classList.toggle('rotation',rotate);
     modePhoto.classList.toggle('active',!rotate);
