@@ -503,34 +503,40 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  const modePhoto=document.getElementById('mode-photo'),mode360=document.getElementById('mode-360');
  const prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next');
  if(!view||!strip||!main)return;
- const photoMode=modePhoto.onclick,spinMode=mode360.onclick;
- const prevAction=prev.onclick,nextAction=next.onclick;
- const isSpin=()=>view.classList.contains('rotation');
- function render(){
-   count.textContent=isSpin()?'':(photo+1)+' / '+photos.length;
-   count.style.display=isSpin()?'none':'inline';
-   strip.hidden=isSpin();
+ const spinHandler=mode360.onclick;
+ const rotating=()=>view.classList.contains('rotation');
+ function showStill(index){
+   photo=(index+photos.length)%photos.length;
+   view.classList.remove('rotation');
+   modePhoto.classList.add('active');mode360.classList.remove('active');
+   modePhoto.setAttribute('aria-pressed','true');mode360.setAttribute('aria-pressed','false');
+   main.src=photos[photo];main.alt='Зайчик, фотография '+(photo+1)+' из '+photos.length;
+   count.textContent=(photo+1)+' / '+photos.length;count.style.display='inline';
+   document.getElementById('rotation-note').textContent='Четыре ракурса работы';
+   draw();
+ }
+ function draw(){
+   strip.hidden=rotating();
    strip.replaceChildren();
-   if(isSpin())return;
+   if(rotating()){count.textContent='';count.style.display='none';return;}
    photos.forEach((src,i)=>{
      const button=document.createElement('button');button.type='button';button.className='photo-thumbnail';
      button.setAttribute('aria-label','Зайчик, фотография '+(i+1));
      if(i===photo)button.setAttribute('aria-current','true');
      const img=document.createElement('img');img.src=src;img.alt='Зайчик, ракурс '+(i+1);
      const label=document.createElement('span');label.textContent=String(i+1).padStart(2,'0');
-     button.append(img,label);
-     button.onclick=()=>{photo=i;showPhoto();render()};
-     strip.append(button);
+     button.append(img,label);button.onclick=()=>showStill(i);strip.append(button);
    });
    const spin=document.createElement('button');spin.type='button';spin.className='photo-thumbnail photo-thumbnail-360';
    spin.textContent='360°';spin.setAttribute('aria-label','Вращение Зайчика на 360 градусов');
    spin.onclick=()=>mode360.click();strip.append(spin);
  }
- modePhoto.onclick=()=>{photoMode?.();showPhoto();render()};
- mode360.onclick=()=>{spinMode?.();render()};
- prev.onclick=()=>{prevAction?.();render()};
- next.onclick=()=>{nextAction?.();render()};
- render();
+ // Replace all previous click handlers rather than chaining them.
+ modePhoto.onclick=()=>showStill(photo);
+ mode360.onclick=()=>{spinHandler?.();draw()};
+ prev.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo-1)};
+ next.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo+1)};
+ showStill(0);
 })();
 </script><style id="hide-spin-counter-final">
 body .product-hero .photo-view.rotation #photo-count{display:none!important;visibility:hidden!important}
