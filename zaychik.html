@@ -451,97 +451,74 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
 .photo-view.rotation .rotation-note{display:block}
 .photo-view.rotation .photo-frame>button{visibility:visible}
 #mode-360,#mode-photo{cursor:pointer}
-</style><script id="zaychik-working-360-script">(()=>{
-  const view=document.querySelector('.photo-view');
-  const frame=document.querySelector('.photo-frame');
-  const main=document.getElementById('main-photo');
-  const counter=document.getElementById('photo-count');
-  const modePhoto=document.getElementById('mode-photo');
-  const modeSpin=document.getElementById('mode-360');
-  const prev=document.getElementById('photo-prev');
-  const next=document.getElementById('photo-next');
-  const note=document.getElementById('rotation-note');
-  const spin=Array.from({length:24},(_,i)=>`assets/zaychik/spin-${String(i+1).padStart(2,'0')}.webp`);
-  let angle=0, dragging=false, previousX=0, accumulated=0, touchStartX=null;
-  const preload=()=>spin.forEach(src=>{const img=new Image();img.src=src;});
-  const rotateBy=(delta)=>{angle=(angle+delta+spin.length)%spin.length;main.src=spin[angle]; main.alt=`Зайчик, вращение 360°, кадр ${angle+1} из 24`;counter.textContent='';};
-  const setActive=(rotate)=>{
-    view.classList.toggle('rotation',rotate);
-    modePhoto.classList.toggle('active',!rotate);
-    modeSpin.classList.toggle('active',rotate);
-    modePhoto.setAttribute('aria-pressed',String(!rotate));
-    modeSpin.setAttribute('aria-pressed',String(rotate));
-    note.textContent=rotate?'Потяни изображение влево или вправо для вращения':'Фотография работы';
-    if(rotate){rotateBy(0)}else{showPhoto()}
-    frame.setAttribute('aria-label',rotate?'Вращение работы 360°. Перетащи мышью или используй стрелки':'Фотографии работы. Стрелки переключают ракурсы');
-  };
-  modePhoto.onclick=()=>setActive(false);
-  modeSpin.onclick=()=>{setActive(true);preload();};
-  prev.onclick=()=>{if(view.classList.contains('rotation'))rotateBy(-1);else{photo=(photo+photos.length-1)%photos.length;showPhoto();}};
-  next.onclick=()=>{if(view.classList.contains('rotation'))rotateBy(1);else{photo=(photo+1)%photos.length;showPhoto();}};
-  frame.addEventListener('pointerdown',e=>{
-    if(!view.classList.contains('rotation')||e.target.closest('button'))return;
-    dragging=true;previousX=e.clientX;accumulated=0;frame.setPointerCapture(e.pointerId);e.preventDefault();
-  });
-  frame.addEventListener('pointermove',e=>{
-    if(!dragging)return;
-    accumulated+=e.clientX-previousX;previousX=e.clientX;
-    const steps=Math.trunc(accumulated/15);
-    if(steps){rotateBy(-steps);accumulated-=steps*15;}
-  });
-  const stop=()=>dragging=false;
-  frame.addEventListener('pointerup',stop);frame.addEventListener('pointercancel',stop);
-  frame.addEventListener('keydown',e=>{
-    if(!view.classList.contains('rotation'))return;
-    if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();e.stopImmediatePropagation();rotateBy(e.key==='ArrowRight'?1:-1)}
-  },true);
-  showPhoto();
-})();</script><script id="unified-card-gallery">
-(()=>{
- const view=document.querySelector('.photo-view'),strip=document.getElementById('photo-thumbnails');
- const main=document.getElementById('main-photo'),count=document.getElementById('photo-count');
- const modePhoto=document.getElementById('mode-photo'),mode360=document.getElementById('mode-360');
- const prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next');
- if(!view||!strip||!main)return;
- const spinHandler=mode360.onclick;
- const rotating=()=>view.classList.contains('rotation');
- function showStill(index){
-   photo=(index+photos.length)%photos.length;
-   view.classList.remove('rotation');
-   modePhoto.classList.add('active');mode360.classList.remove('active');
-   modePhoto.setAttribute('aria-pressed','true');mode360.setAttribute('aria-pressed','false');
-   main.src=photos[photo];main.alt='Зайчик, фотография '+(photo+1)+' из '+photos.length;
-   count.textContent=(photo+1)+' / '+photos.length;count.style.display='inline';
-   document.getElementById('rotation-note').textContent='Четыре ракурса работы';
-   draw();
- }
- function draw(){
-   if(rotating()){strip.hidden=true;strip.style.setProperty('display','none','important');count.textContent='';count.style.display='none';return;}
-   strip.hidden=false;strip.removeAttribute('hidden');strip.style.setProperty('display','grid','important');
-   strip.replaceChildren();
-   photos.forEach((src,i)=>{
-     const button=document.createElement('button');button.type='button';button.className='photo-thumbnail';
-     button.setAttribute('aria-label','Зайчик, фотография '+(i+1));
-     if(i===photo)button.setAttribute('aria-current','true');
-     const img=document.createElement('img');img.src=src;img.alt='Зайчик, ракурс '+(i+1);
-     const label=document.createElement('span');label.textContent=String(i+1).padStart(2,'0');
-     button.append(img,label);button.onclick=()=>showStill(i);strip.append(button);
-   });
-   const spin=document.createElement('button');spin.type='button';spin.className='photo-thumbnail photo-thumbnail-360';
-   spin.textContent='360°';spin.setAttribute('aria-label','Вращение Зайчика на 360 градусов');
-   spin.onclick=()=>mode360.click();strip.append(spin);
- }
- // Replace all previous click handlers rather than chaining them.
- modePhoto.onclick=()=>{showStill(photo);requestAnimationFrame(()=>{strip.hidden=false;strip.removeAttribute('hidden');strip.style.setProperty('display','grid','important');draw()})};
- mode360.onclick=()=>{spinHandler?.();draw()};
- prev.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo-1)};
- next.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo+1)};
- showStill(0);
- view.addEventListener('transitionend',()=>{if(!rotating())draw()});
-})();
-</script><style id="hide-spin-counter-final">
-body .product-hero .photo-view.rotation #photo-count{display:none!important;visibility:hidden!important}
+</style><style id="rabbit-clean-controls">
+.photo-view.rotation #photo-count{display:none!important}
+.photo-view.rotation #photo-thumbnails{display:none!important}
+#photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important}
+#photo-thumbnails[hidden]{display:none!important}
+#photo-thumbnails .photo-thumbnail[aria-current="true"]{background:rgba(8,47,41,.07)}
+#mode-360{display:none!important}
+#rabbit-lightbox{border:0;padding:12px;background:#fbf8f1;max-width:96vw;max-height:96vh}
+#rabbit-lightbox::backdrop{background:rgba(0,0,0,.82)}
+#rabbit-lightbox .lightbox-toolbar{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:6px 14px}
+#rabbit-lightbox .lightbox-toolbar button{background:none;border:1px solid #999;padding:9px 15px;cursor:pointer}
+#rabbit-lightbox img{display:block;max-width:90vw;max-height:82vh;object-fit:contain}
 </style>
-<script id="hide-spin-counter-final-script">
-(()=>{const view=document.querySelector('.photo-view'),count=document.getElementById('photo-count');if(!view||!count)return;const refresh=()=>{const spin=view.classList.contains('rotation');count.style.setProperty('display',spin?'none':'inline','important');count.setAttribute('aria-hidden',String(spin));};new MutationObserver(refresh).observe(view,{attributes:true,attributeFilter:['class']});refresh();})();
+<dialog id="rabbit-lightbox" aria-label="Увеличенная фотография Зайчика">
+ <div class="lightbox-toolbar"><span id="rabbit-lightbox-label">Зайчик</span><button id="rabbit-lightbox-close" type="button">Закрыть ×</button></div>
+ <img id="rabbit-lightbox-img" alt="Увеличенное изображение Зайчика">
+</dialog>
+<script id="rabbit-single-gallery-controller">
+(()=>{
+ const view=document.querySelector('.photo-view'),frame=document.querySelector('.photo-frame'),img=document.getElementById('main-photo'),count=document.getElementById('photo-count');
+ const strip=document.getElementById('photo-thumbnails'),photoButton=document.getElementById('mode-photo'),spinButton=document.getElementById('mode-360'),prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next');
+ const note=document.getElementById('rotation-note'),zoom=document.getElementById('detail-link'),dialog=document.getElementById('rabbit-lightbox'),large=document.getElementById('rabbit-lightbox-img');
+ if(!view||!frame||!img||!strip||!count||!dialog)return;
+ const stills=['assets/zaychik/photo-01.webp','assets/zaychik/photo-02.webp','assets/zaychik/photo-03.webp','assets/zaychik/photo-04.webp'];
+ const spins=Array.from({length:24},(_,i)=>'assets/zaychik/spin-'+String(i+1).padStart(2,'0')+'.webp');
+ let stillIndex=0,spinIndex=0,spinMode=false,dragging=false,lastX=0,accum=0;
+ function paint(){
+   view.classList.toggle('rotation',spinMode);
+   photoButton.classList.toggle('active',!spinMode);
+   spinButton.classList.toggle('active',spinMode);
+   photoButton.setAttribute('aria-pressed',String(!spinMode));
+   spinButton.setAttribute('aria-pressed',String(spinMode));
+   img.src=spinMode?spins[spinIndex]:stills[stillIndex];
+   img.alt=spinMode?'Зайчик, вращение 360°':'Зайчик, фотография '+(stillIndex+1)+' из 4';
+   count.textContent=spinMode?'':(stillIndex+1)+' / 4';
+   count.hidden=spinMode;
+   strip.hidden=spinMode;
+   note.textContent=spinMode?'Потяни изображение влево или вправо для вращения':'Четыре ракурса работы';
+   if(!spinMode)drawThumbnails();
+ }
+ function drawThumbnails(){
+   strip.replaceChildren();
+   stills.forEach((src,i)=>{
+     const b=document.createElement('button');b.type='button';b.className='photo-thumbnail';
+     b.setAttribute('aria-label','Зайчик, фотография '+(i+1));
+     if(i===stillIndex)b.setAttribute('aria-current','true');
+     const thumbnail=document.createElement('img');thumbnail.src=src;thumbnail.alt='Ракурс '+(i+1);
+     const label=document.createElement('span');label.textContent=String(i+1).padStart(2,'0');
+     b.append(thumbnail,label);
+     b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint()});
+     strip.append(b);
+   });
+   const b=document.createElement('button');b.type='button';b.className='photo-thumbnail photo-thumbnail-360';b.textContent='360°';
+   b.setAttribute('aria-label','Включить вращение на 360 градусов');
+   b.addEventListener('click',()=>{spinMode=true;spinIndex=0;paint();spins.forEach(src=>{const x=new Image();x.src=src})});
+   strip.append(b);
+ }
+ photoButton.onclick=()=>{spinMode=false;paint()};
+ spinButton.onclick=()=>{spinMode=true;paint()};
+ prev.onclick=()=>{if(spinMode)spinIndex=(spinIndex+23)%24;else stillIndex=(stillIndex+3)%4;paint()};
+ next.onclick=()=>{if(spinMode)spinIndex=(spinIndex+1)%24;else stillIndex=(stillIndex+1)%4;paint()};
+ frame.addEventListener('pointerdown',e=>{if(!spinMode||e.target.closest('button'))return;dragging=true;lastX=e.clientX;accum=0;frame.setPointerCapture(e.pointerId);e.preventDefault()});
+ frame.addEventListener('pointermove',e=>{if(!dragging||!spinMode)return;accum+=e.clientX-lastX;lastX=e.clientX;const steps=Math.trunc(accum/15);if(steps){spinIndex=(spinIndex-steps%24+24)%24;accum-=steps*15;paint()}});
+ const stop=()=>dragging=false;frame.addEventListener('pointerup',stop);frame.addEventListener('pointercancel',stop);
+ frame.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();(e.key==='ArrowLeft'?prev:next).click()}});
+ zoom.onclick=e=>{e.preventDefault();large.src=img.src;large.alt=img.alt;document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / 4';dialog.showModal()};
+ document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();
+ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+ paint();
+})();
 </script></body></html>
