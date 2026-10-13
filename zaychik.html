@@ -626,10 +626,13 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
   const selected=stillIndex;
   const fallback=stills[selected];
   large.src=fallback;
-  const highres=fallback.endsWith('-large.jpg')?fallback:fallback.replace(/\.webp$/,'-large.jpg');
+  const highres='assets/zaychik/photo-'+String(selected+1).padStart(2,'0')+'-large.webp';
   const candidate=new Image();
   candidate.onload=()=>{if(dialog.open&&!spinMode&&stillIndex===selected)large.src=highres;};
-  candidate.onerror=()=>{};
+  candidate.onerror=()=>{
+    const jpg='assets/zaychik/photo-'+String(selected+1).padStart(2,'0')+'-large.jpg';
+    if(dialog.open&&!spinMode&&stillIndex===selected)large.src=jpg;
+  };
   candidate.src=highres;
 };
  large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};
