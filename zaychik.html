@@ -456,6 +456,10 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
 .photo-view.rotation #photo-thumbnails{display:none!important}
 #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important}
 #photo-thumbnails[hidden]{display:none!important}
+.photo-view.rotation .photo-frame img{opacity:1!important}
+.photo-view.rotation .photo-frame:after{display:none!important}
+.photo-view.rotation .photo-frame>button{visibility:visible!important}
+.photo-view.rotation .photo-frame{touch-action:pan-y;cursor:grab}
 #photo-thumbnails .photo-thumbnail[aria-current="true"]{background:rgba(8,47,41,.07)}
 #mode-360{display:none!important}
 #rabbit-lightbox{border:0;padding:12px;background:#fbf8f1;max-width:96vw;max-height:96vh}
