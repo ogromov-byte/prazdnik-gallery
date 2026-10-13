@@ -516,9 +516,9 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
    draw();
  }
  function draw(){
-   strip.hidden=rotating();
+   if(rotating()){strip.hidden=true;strip.style.setProperty('display','none','important');count.textContent='';count.style.display='none';return;}
+   strip.hidden=false;strip.removeAttribute('hidden');strip.style.setProperty('display','grid','important');
    strip.replaceChildren();
-   if(rotating()){count.textContent='';count.style.display='none';return;}
    photos.forEach((src,i)=>{
      const button=document.createElement('button');button.type='button';button.className='photo-thumbnail';
      button.setAttribute('aria-label','Зайчик, фотография '+(i+1));
@@ -532,11 +532,12 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
    spin.onclick=()=>mode360.click();strip.append(spin);
  }
  // Replace all previous click handlers rather than chaining them.
- modePhoto.onclick=()=>showStill(photo);
+ modePhoto.onclick=()=>{showStill(photo);requestAnimationFrame(()=>{strip.hidden=false;strip.removeAttribute('hidden');strip.style.setProperty('display','grid','important');draw()})};
  mode360.onclick=()=>{spinHandler?.();draw()};
  prev.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo-1)};
  next.onclick=()=>{if(rotating()){const event=new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true});document.querySelector('.photo-frame').dispatchEvent(event)}else showStill(photo+1)};
  showStill(0);
+ view.addEventListener('transitionend',()=>{if(!rotating())draw()});
 })();
 </script><style id="hide-spin-counter-final">
 body .product-hero .photo-view.rotation #photo-count{display:none!important;visibility:hidden!important}
