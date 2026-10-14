@@ -596,8 +596,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
      b.setAttribute('aria-label','Зайчик, ракурс '+angles[i]);
      if(i===stillIndex)b.setAttribute('aria-current','true');
      const thumbnail=document.createElement('img');thumbnail.src=src;thumbnail.alt='Зайчик, ракурс '+angles[i];
-     const label=document.createElement('span');label.textContent=angles[i];
-     b.append(thumbnail,label);
+     b.append(thumbnail);
      b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint()});
      strip.append(b);
    });
