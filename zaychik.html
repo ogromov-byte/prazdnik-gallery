@@ -698,6 +698,38 @@ body[data-card-layout="warm"] .product-hero .photo-view.rotation #photo-thumbnai
     transform:scale(1.20)!important;transform-origin:center bottom!important;
   }
 }
+</style><style id="rabbit-balanced-columns-20261016">
+/* At desktop widths, keep photo gallery and text column visually equal in height. */
+@media(min-width:1051px){
+ body[data-card-layout="warm"] .product-hero .product-stage{
+   align-items:stretch!important;
+   min-height:1000px!important;
+ }
+ body[data-card-layout="warm"] .product-hero .photo-view{
+   display:flex!important;flex-direction:column!important;
+   align-self:stretch!important;justify-content:space-between!important;
+   height:auto!important;min-height:0!important;
+   padding-top:0!important;padding-bottom:0!important;
+ }
+ body[data-card-layout="warm"] .product-hero .photo-view .photo-frame,
+ body[data-card-layout="warm"] .product-hero .photo-view.rotation .photo-frame{
+   flex:1 1 auto!important;height:auto!important;min-height:700px!important;max-height:none!important;
+   overflow:visible!important;
+ }
+ body[data-card-layout="warm"] .product-hero .photo-view:not(.rotation) .photo-frame #main-photo{
+   transform:scale(1.13)!important;transform-origin:center center!important;
+ }
+ body[data-card-layout="warm"] .product-hero .photo-view #photo-thumbnails{
+   flex:0 0 145px!important;
+ }
+ body[data-card-layout="warm"] .product-hero .photo-view .photo-toolbar{
+   flex:0 0 auto!important;
+ }
+ body[data-card-layout="warm"] .product-hero .product-copy{
+   align-self:stretch!important;
+   display:flex!important;flex-direction:column!important;justify-content:center!important;
+ }
+}
 </style></head><body data-card-layout="warm"><header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="index.html" aria-label="Галерея Громовой">
         <span class="brand-wordmark">ГАЛЕРЕЯ ГРОМОВОЙ<span class="brand-dot" aria-hidden="true"></span></span>
       </a><span class="series-label">Серия «Праздник»</span></div><button class="menu-toggle" hidden aria-label="Открыть меню" aria-expanded="false"></button><nav class="main-nav" hidden></nav><div class="header-actions" aria-label="Действия"><a href="index.html" aria-label="На главную" title="На главную"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a><button id="collection-open" aria-label="Моя коллекция" title="Моя коллекция"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></button><button aria-label="Корзина" title="Корзина"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.5 12h11L21 7H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span class="badge">0</span></button></div></div></header><main><section class="product-hero"><div class="container product-stage"><div class="photo-view"><div class="photo-frame"><button id="photo-prev" aria-label="Предыдущая фотография">←</button><img id="main-photo" src="assets/zaychik/photo-01-showcase.webp" alt="Зайчик, фотография 1 из 6"><button id="photo-next" aria-label="Следующая фотография">→</button></div><div class="photo-thumbnails" id="photo-thumbnails" aria-label="Шесть фотографий и вращение 360°"><button type="button" class="photo-thumbnail" data-photo-index="0" aria-label="Фотография 1"><img src="assets/zaychik/photo-01-showcase.webp" alt="Зайчик, ракурс 1"><span>01</span></button><button type="button" class="photo-thumbnail" data-photo-index="1" aria-label="Фотография 2"><img src="assets/zaychik/photo-02-showcase.webp" alt="Зайчик, ракурс 2"><span>02</span></button><button type="button" class="photo-thumbnail" data-photo-index="2" aria-label="Фотография 3"><img src="assets/zaychik/photo-03-showcase.webp" alt="Зайчик, ракурс 3"><span>03</span></button><button type="button" class="photo-thumbnail" data-photo-index="3" aria-label="Фотография 4"><img src="assets/zaychik/photo-04-showcase.webp" alt="Зайчик, ракурс 4"><span>04</span></button></div><div class="photo-toolbar"><div class="view-modes" aria-label="Режим просмотра"><button id="mode-photo" class="active" aria-pressed="true">Фото</button></div><span class="photo-count" id="photo-count">1 / 6</span><a href="#" class="detail-link" id="detail-link" aria-label="Рассмотреть работу в высоком качестве" title="Рассмотреть работу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a><button id="mode-360" type="button" class="toolbar-spin" aria-pressed="false">360°</button></div><p class="rotation-note" id="rotation-note">Фотография работы</p></div><div class="product-copy"><p class="eyebrow">Владимир Гвоздев · Серия «Праздник»</p><h1>Зайчик</h1><p class="haiku">хочу, чтобы меня взяли в оркестр,<br>хочу ударить ровно на счёт «три»,<br>хочу, чтобы уши никто не трогал.</p><div class="product-description">
