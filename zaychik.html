@@ -675,6 +675,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
 .photo-view:not(.rotation) #main-photo,.photo-view:not(.rotation) .photo-thumbnail img{-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-position:center;mask-position:center}
 .photo-view.rotation .photo-frame>button{visibility:hidden!important}
 </style>
+<script src="assets/zaychik/showcase-cutout.js?v=2"></script>
 <script id="rabbit-single-gallery-controller">
 (()=>{
  const view=document.querySelector('.photo-view'),frame=document.querySelector('.photo-frame'),img=document.getElementById('main-photo'),count=document.getElementById('photo-count');
@@ -696,7 +697,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
    photoButton.setAttribute('aria-pressed',String(!spinMode));
    spinButton.setAttribute('aria-pressed',String(spinMode));
    img.src=spinMode?spins[spinIndex]:stills[stillIndex];
-   setMask(img,spinMode?null:masks[stillIndex]);
+   setMask(img,spinMode||stills[stillIndex].startsWith("blob:")?null:masks[stillIndex]);
    img.alt=spinMode?'Зайчик, вращение 360°, кадр '+(spinIndex+1)+' из 24':'Зайчик, фотография '+(stillIndex+1)+' из '+stills.length;
    count.textContent=spinMode?'':(stillIndex+1)+' / '+stills.length;
    count.hidden=spinMode;strip.hidden=spinMode;
@@ -709,7 +710,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
      if(i===stillIndex)return;
      const b=document.createElement('button');b.type='button';b.className='photo-thumbnail';
      b.setAttribute('aria-label','Зайчик, ракурс '+angles[i]);
-     const thumb=document.createElement('img');thumb.src=src;thumb.alt='Зайчик, ракурс '+angles[i];thumb.draggable=false;setMask(thumb,masks[i]);b.append(thumb);
+     const thumb=document.createElement('img');thumb.src=src;thumb.alt='Зайчик, ракурс '+angles[i];thumb.draggable=false;setMask(thumb,src.startsWith("blob:")?null:masks[i]);b.append(thumb);
      b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint();});strip.append(b);
    });
  }
@@ -728,8 +729,9 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  frame.addEventListener('touchend',()=>{touchX=null},{passive:true});
  frame.tabIndex=0;
  frame.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();e.stopPropagation();if(spinMode){spinIndex=(spinIndex+(e.key==='ArrowLeft'?23:1))%24;paint()}else (e.key==='ArrowLeft'?prev:next).click();});
- zoom.onclick=e=>{e.preventDefault();if(!dialog)return;const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;setMask(large,spinMode?null:masks[stillIndex]);document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal();};
+ zoom.onclick=e=>{e.preventDefault();if(!dialog)return;const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;setMask(large,spinMode||stills[stillIndex].startsWith("blob:")?null:masks[stillIndex]);document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal();};
  if(dialog){large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});}
+ stills.forEach((source,i)=>window.rabbitShowcase.get(source).then(url=>{if(url){stills[i]=url;if(!spinMode)paint();}}));
  paint();
 })();
 </script></body></html>
