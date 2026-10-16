@@ -669,16 +669,26 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  <div class="lightbox-toolbar"><span id="rabbit-lightbox-label">Зайчик</span><button id="rabbit-lightbox-close" type="button">Закрыть ×</button></div>
  <div class="lightbox-stage" id="rabbit-lightbox-stage"><img id="rabbit-lightbox-img" alt="Увеличенное изображение Зайчика" title="Нажми, чтобы увеличить до деталей"></div>
 </dialog>
+<style id="rabbit-mobile-photo-fixes">
+.photo-view.rotation .photo-frame{touch-action:none!important;user-select:none!important;-webkit-user-select:none!important;overscroll-behavior:contain}
+.photo-view.rotation #main-photo{pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.photo-view:not(.rotation) #main-photo,.photo-view:not(.rotation) .photo-thumbnail img{-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-position:center;mask-position:center}
+.photo-view.rotation .photo-frame>button{visibility:hidden!important}
+</style>
 <script id="rabbit-single-gallery-controller">
 (()=>{
  const view=document.querySelector('.photo-view'),frame=document.querySelector('.photo-frame'),img=document.getElementById('main-photo'),count=document.getElementById('photo-count');
  const strip=document.getElementById('photo-thumbnails'),photoButton=document.getElementById('mode-photo'),spinButton=document.getElementById('mode-360'),prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next');
  const note=document.getElementById('rotation-note'),zoom=document.getElementById('detail-link'),dialog=document.getElementById('rabbit-lightbox'),large=document.getElementById('rabbit-lightbox-img');
- if(!view||!frame||!img||!strip||!count||!dialog)return;
+ if(!view||!frame||!img||!strip||!count||!photoButton||!spinButton)return;
  const stills=photos;
- const angles=["0°","45°","90°","180°","−90°","−45°"];
+ const angles=['0°','45°','90°','180°','−90°','−45°'];
+ const sourceIndices=[1,4,7,13,19,22];
+ const masks=sourceIndices.map(n=>'assets/zaychik/spin-'+String(n).padStart(2,'0')+'.webp');
  const spins=Array.from({length:24},(_,i)=>'assets/zaychik/spin-'+String(i+1).padStart(2,'0')+'.webp');
- let stillIndex=0,spinIndex=0,spinMode=false,dragging=false,lastX=0,accum=0;
+ let stillIndex=0,spinIndex=0,spinMode=false,dragging=false,lastX=0,accum=0,activePointer=null,touchX=null;
+ img.draggable=false;
+ const setMask=(element,mask)=>{element.style.webkitMaskImage=mask?'url("'+mask+'")':'none';element.style.maskImage=mask?'url("'+mask+'")':'none';};
  function paint(){
    view.classList.toggle('rotation',spinMode);
    photoButton.classList.toggle('active',!spinMode);
@@ -686,11 +696,11 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
    photoButton.setAttribute('aria-pressed',String(!spinMode));
    spinButton.setAttribute('aria-pressed',String(spinMode));
    img.src=spinMode?spins[spinIndex]:stills[stillIndex];
-   img.alt=spinMode?'Зайчик, вращение 360°':'Зайчик, фотография '+(stillIndex+1)+' из '+stills.length;
+   setMask(img,spinMode?null:masks[stillIndex]);
+   img.alt=spinMode?'Зайчик, вращение 360°, кадр '+(spinIndex+1)+' из 24':'Зайчик, фотография '+(stillIndex+1)+' из '+stills.length;
    count.textContent=spinMode?'':(stillIndex+1)+' / '+stills.length;
-   count.hidden=spinMode;
-   strip.hidden=spinMode;
-   note.textContent=spinMode?'Потяни изображение влево или вправо для вращения':'Шесть ракурсов работы';
+   count.hidden=spinMode;strip.hidden=spinMode;
+   note.textContent=spinMode?'Проведи пальцем по изображению, чтобы повернуть фигурку':'Шесть ракурсов работы';
    if(!spinMode)drawThumbnails();
  }
  function drawThumbnails(){
@@ -699,25 +709,27 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
      if(i===stillIndex)return;
      const b=document.createElement('button');b.type='button';b.className='photo-thumbnail';
      b.setAttribute('aria-label','Зайчик, ракурс '+angles[i]);
-       const thumbnail=document.createElement('img');thumbnail.src=src;thumbnail.alt='Зайчик, ракурс '+angles[i];
-     b.append(thumbnail);
-     b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint()});
-     strip.append(b);
+     const thumb=document.createElement('img');thumb.src=src;thumb.alt='Зайчик, ракурс '+angles[i];thumb.draggable=false;setMask(thumb,masks[i]);b.append(thumb);
+     b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint();});strip.append(b);
    });
-
  }
- photoButton.onclick=()=>{spinMode=false;paint()};
- spinButton.onclick=()=>{spinMode=true;paint()};
- prev.onclick=()=>{if(spinMode)return;stillIndex=(stillIndex+stills.length-1)%stills.length;paint()};
- next.onclick=()=>{if(spinMode)return;stillIndex=(stillIndex+1)%stills.length;paint()};
- frame.addEventListener('pointerdown',e=>{if(!spinMode||e.target.closest('button'))return;dragging=true;lastX=e.clientX;accum=0;frame.setPointerCapture(e.pointerId);e.preventDefault()});
- frame.addEventListener('pointermove',e=>{if(!dragging||!spinMode)return;accum+=e.clientX-lastX;lastX=e.clientX;const steps=Math.trunc(accum/15);if(steps){spinIndex=(spinIndex-steps%24+24)%24;accum-=steps*15;paint()}});
- const stop=()=>dragging=false;frame.addEventListener('pointerup',stop);frame.addEventListener('pointercancel',stop);
- frame.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();if(spinMode){spinIndex=(spinIndex+(e.key==='ArrowLeft'?23:1))%24;paint()}else (e.key==='ArrowLeft'?prev:next).click()}});
- zoom.onclick=e=>{e.preventDefault();const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal()};
- large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};
- document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();
- dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+ function rotate(delta){accum+=delta;const steps=Math.trunc(accum/10);if(steps){spinIndex=((spinIndex-steps)%24+24)%24;accum-=steps*10;paint();}}
+ photoButton.onclick=()=>{spinMode=false;paint();};
+ spinButton.onclick=()=>{spinMode=true;spinIndex=sourceIndices[stillIndex]-1;paint();spins.forEach(src=>{const preload=new Image();preload.src=src;});};
+ prev.onclick=()=>{if(spinMode)return;stillIndex=(stillIndex+5)%6;paint();};
+ next.onclick=()=>{if(spinMode)return;stillIndex=(stillIndex+1)%6;paint();};
+ frame.addEventListener('dragstart',e=>e.preventDefault());
+ frame.addEventListener('pointerdown',e=>{if(!spinMode||e.pointerType==='touch'||e.target.closest('button'))return;dragging=true;activePointer=e.pointerId;lastX=e.clientX;accum=0;try{frame.setPointerCapture(e.pointerId)}catch(_e){}e.preventDefault();});
+ frame.addEventListener('pointermove',e=>{if(!spinMode||!dragging||e.pointerId!==activePointer)return;rotate(e.clientX-lastX);lastX=e.clientX;});
+ const stop=()=>{dragging=false;activePointer=null;touchX=null;};
+ frame.addEventListener('pointerup',stop);frame.addEventListener('pointercancel',stop);
+ frame.addEventListener('touchstart',e=>{if(!spinMode||!e.touches.length)return;touchX=e.touches[0].clientX;accum=0;},{passive:true});
+ frame.addEventListener('touchmove',e=>{if(!spinMode||touchX===null||!e.touches.length)return;e.preventDefault();const x=e.touches[0].clientX;rotate(x-touchX);touchX=x;},{passive:false});
+ frame.addEventListener('touchend',()=>{touchX=null},{passive:true});
+ frame.tabIndex=0;
+ frame.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();e.stopPropagation();if(spinMode){spinIndex=(spinIndex+(e.key==='ArrowLeft'?23:1))%24;paint()}else (e.key==='ArrowLeft'?prev:next).click();});
+ zoom.onclick=e=>{e.preventDefault();if(!dialog)return;const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;setMask(large,spinMode?null:masks[stillIndex]);document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal();};
+ if(dialog){large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});}
  paint();
 })();
 </script></body></html>
