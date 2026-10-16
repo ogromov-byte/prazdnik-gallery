@@ -68,6 +68,8 @@
       if(img.dataset.showcaseSource===src || img.getAttribute('src')===src){
         img.dataset.showcaseSource=src;
         img.src=url;
+        img.style.webkitMaskImage='none';
+        img.style.maskImage='none';
       }
     });
   }
