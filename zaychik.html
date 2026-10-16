@@ -729,6 +729,32 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
 .photo-view.rotation .photo-frame>button{visibility:hidden!important}
 </style>
 <script src="assets/zaychik/showcase-cutout.js?v=2"></script>
+<style id="rabbit-detail-photo-20261016">
+/* Detail viewer uses its own high-resolution images, never gallery masks. */
+#rabbit-lightbox{background:#fbf8f1!important;overflow:hidden!important}
+#rabbit-lightbox .lightbox-stage{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  justify-content:center!important;width:100%!important;height:calc(100% - 54px)!important;
+  overflow:auto!important;background:#fbf8f1!important;
+}
+#rabbit-lightbox .lightbox-stage img{
+  display:block!important;flex:none!important;width:auto!important;height:auto!important;
+  max-width:100%!important;max-height:100%!important;min-height:0!important;
+  margin:auto!important;object-fit:contain!important;transform:none!important;
+  -webkit-mask-image:none!important;mask-image:none!important;
+  cursor:zoom-in!important;
+}
+#rabbit-lightbox .lightbox-stage.zoomed{display:block!important;overflow:auto!important}
+#rabbit-lightbox .lightbox-stage.zoomed img{
+  width:auto!important;height:auto!important;max-width:none!important;
+  max-height:none!important;min-height:0!important;
+  min-width:110%!important;object-fit:contain!important;
+  margin:0 auto!important;cursor:zoom-out!important;
+}
+@media(max-width:760px){
+ #rabbit-lightbox .lightbox-stage.zoomed img{min-width:180%!important}
+}
+</style>
 <script id="rabbit-single-gallery-controller">
 (()=>{
  const view=document.querySelector('.photo-view'),frame=document.querySelector('.photo-frame'),img=document.getElementById('main-photo'),count=document.getElementById('photo-count');
@@ -736,6 +762,14 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  const note=document.getElementById('rotation-note'),zoom=document.getElementById('detail-link'),dialog=document.getElementById('rabbit-lightbox'),large=document.getElementById('rabbit-lightbox-img');
  if(!view||!frame||!img||!strip||!count||!photoButton||!spinButton)return;
  const stills=photos;
+ const largePhotos=[
+  'assets/zaychik/photo-01-large.webp',
+  'assets/zaychik/photo-02-large.webp',
+  'assets/zaychik/photo-03-large.webp',
+  'assets/zaychik/photo-04-large.webp',
+  'assets/zaychik/photo-05-large.webp',
+  'assets/zaychik/spin-22.webp'
+ ];
  const angles=['0°','45°','90°','180°','−90°','−45°'];
  const sourceIndices=[1,4,7,13,19,22];
  const masks=sourceIndices.map(n=>'assets/zaychik/spin-'+String(n).padStart(2,'0')+'.webp');
@@ -782,7 +816,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  frame.addEventListener('touchend',()=>{touchX=null},{passive:true});
  frame.tabIndex=0;
  frame.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();e.stopPropagation();if(spinMode){spinIndex=(spinIndex+(e.key==='ArrowLeft'?23:1))%24;paint()}else (e.key==='ArrowLeft'?prev:next).click();});
- zoom.onclick=e=>{e.preventDefault();if(!dialog)return;const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=img.src;large.alt=img.alt;setMask(large,spinMode||stills[stillIndex].startsWith("blob:")?null:masks[stillIndex]);document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal();};
+ zoom.onclick=e=>{e.preventDefault();if(!dialog)return;const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.remove('zoomed');stage.scrollTop=0;stage.scrollLeft=0;large.src=spinMode?spins[spinIndex]:largePhotos[stillIndex];large.alt=img.alt;setMask(large,null);document.getElementById('rabbit-lightbox-label').textContent=spinMode?'Зайчик · 360°':'Зайчик · Фото '+(stillIndex+1)+' / '+stills.length;dialog.showModal();};
  if(dialog){large.onclick=()=>{const stage=document.getElementById('rabbit-lightbox-stage');stage.classList.toggle('zoomed');stage.scrollTop=0;stage.scrollLeft=0};document.getElementById('rabbit-lightbox-close').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});}
  stills.forEach((source,i)=>window.rabbitShowcase.get(source).then(url=>{if(url){stills[i]=url;if(!spinMode)paint();}}));
  paint();
