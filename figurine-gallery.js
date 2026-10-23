@@ -144,31 +144,32 @@ if(zoom){zoom.onclick=e=>{
  let dialog=document.getElementById('canonical-loupe');
  if(!dialog){
   dialog=document.createElement('dialog');dialog.id='canonical-loupe';
-  dialog.className='canonical-loupe-full';
-  dialog.innerHTML='<button class="canonical-close" type="button" aria-label="Закрыть">×</button><button class="canonical-arrow canonical-prev" type="button" aria-label="Предыдущее фото">‹</button><div class="canonical-image-wrap"><img alt="Увеличенное изображение"></div><button class="canonical-arrow canonical-next" type="button" aria-label="Следующее фото">›</button><div class="canonical-zoom-hint">Нажмите на изображение для увеличения</div>';
+  dialog.innerHTML='<div class="loupe-surface"><button type="button" class="canonical-close" aria-label="Закрыть">×</button><button type="button" class="loupe-arrow loupe-prev" aria-label="Предыдущее фото">‹</button><img class="loupe-photo" alt="Увеличенное изображение" tabindex="0"><button type="button" class="loupe-arrow loupe-next" aria-label="Следующее фото">›</button><span class="loupe-index" aria-live="polite"></span></div>';
   document.body.append(dialog);
+  const pic=dialog.querySelector('.loupe-photo');
+  const draw=()=>{
+   pic.classList.remove('is-zoomed');
+   pic.src=large[dialog._photoIndex];
+   pic.onerror=()=>{pic.onerror=null;pic.src=stills[dialog._photoIndex]};
+   pic.alt='Пьеро, ракурс '+(dialog._photoIndex+1)+' из 6';
+   dialog.querySelector('.loupe-index').textContent=(dialog._photoIndex+1)+' / 6';
+  };
+  const step=dir=>{dialog._photoIndex=(dialog._photoIndex+dir+6)%6;draw()};
+  dialog.querySelector('.loupe-prev').onclick=()=>step(-1);
+  dialog.querySelector('.loupe-next').onclick=()=>step(1);
   dialog.querySelector('.canonical-close').onclick=()=>dialog.close();
-  dialog.querySelector('.canonical-prev').onclick=()=>step(-1);
-  dialog.querySelector('.canonical-next').onclick=()=>step(1);
-  dialog.querySelector('.canonical-image-wrap').onclick=()=>dialog.classList.toggle('magnified');
-  dialog.addEventListener('close',()=>dialog.classList.remove('magnified'));
-  dialog.addEventListener('click',ev=>{if(ev.target===dialog)dialog.close()});
+  pic.onclick=()=>pic.classList.toggle('is-zoomed');
   dialog.addEventListener('keydown',ev=>{
-   if(ev.key==='ArrowLeft'||ev.key==='ArrowRight'){ev.preventDefault();ev.stopPropagation();step(ev.key==='ArrowLeft'?-1:1)}
+   if(ev.key==='ArrowLeft'){ev.preventDefault();step(-1)}
+   if(ev.key==='ArrowRight'){ev.preventDefault();step(1)}
   });
+  dialog.addEventListener('click',ev=>{if(ev.target===dialog)dialog.close()});
+  dialog._draw=draw;
  }
- let selected=mode==='360'?source.reduce((best,frame,i)=>Math.abs(frame-1-rotation)<Math.abs(source[best]-1-rotation)?i:best,0):current;
- function show(){
-  dialog.classList.remove('magnified');
-  const picture=dialog.querySelector('.canonical-image-wrap img');
-  picture.alt='Пьеро, ракурс '+(selected+1)+' из 6';
-  picture.src=large[selected];
-  picture.onerror=()=>{picture.onerror=null;picture.src=stills[selected]};
- }
- function step(direction){selected=(selected+direction+6)%6;show()}
- show();
+ dialog._photoIndex=mode==='360'?Math.min(5,source.reduce((best,f,i)=>Math.abs(f-1-rotation)<Math.abs(source[best]-1-rotation)?i:best,0)):current;
+ dialog._draw();
  if(!dialog.open)dialog.showModal();
-}}
+}};
 
 img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
