@@ -4,11 +4,12 @@
 const slug=document.body.dataset.figurine;
 if(!slug)return;
 const base='assets/'+slug+'/';
-const source=[1,4,7,13,19,22];
+const source=slug==='moryak'?[1,4,7,12,18,21]:[1,4,7,13,19,22];
+const spinCount=slug==='moryak'?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
 const stills=source.map((frame,i)=>slug==='piero'?base+'spin-'+String(frame).padStart(2,'0')+'.webp':base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp');
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
-const spins=Array.from({length:24},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
+const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
 function pieroPreview(img,frame){
  const url=spins[frame-1],raw=new Image();
  raw.onload=()=>{
@@ -88,7 +89,7 @@ function render(){
  const src=mode==='360'?spins[rotation]:stills[current];
  img.onerror=()=>{if(mode==='photo'&&!img.dataset.fallback){img.dataset.fallback='1';img.src=spins[source[current]-1]}};
  img.dataset.fallback='';img.src=src;
- img.alt=mode==='360'?'Фигурка, 360°, кадр '+(rotation+1)+' из 24':'Фигурка, фото '+(current+1)+' из 6';
+ img.alt=mode==='360'?'Фигурка, 360°, кадр '+(rotation+1)+' из '+spinCount:'Фигурка, фото '+(current+1)+' из 6';
  counter.hidden=mode==='360';counter.textContent=mode==='360'?'':(current+1)+' / 6';
  strip.hidden=mode==='360';
  // Keep all six preview DOM nodes mounted. No flash, image reload, or angle text on selection.
@@ -127,7 +128,7 @@ modePhoto.onclick=()=>{mode='photo';render()};
 mode360.onclick=()=>{mode='360';rotation=source[current]-1;render();spins.forEach(s=>{const im=new Image();im.src=s})};
 if(prev)prev.onclick=()=>{if(mode==='photo'){current=(current+5)%6;render()}};
 if(next)next.onclick=()=>{if(mode==='photo'){current=(current+1)%6;render()}};
-function rotate(dx){delta+=dx;const steps=Math.trunc(delta/12);if(steps){rotation=((rotation-steps)%24+24)%24;delta-=steps*12;render()}}
+function rotate(dx){delta+=dx;const steps=Math.trunc(delta/12);if(steps){rotation=((rotation-steps)%spinCount+spinCount)%spinCount;delta-=steps*12;render()}}
 frame.addEventListener('pointerdown',e=>{if(mode!=='360'||e.pointerType==='touch'||e.target.closest('button'))return;startX=e.clientX;activePointer=e.pointerId;delta=0;try{frame.setPointerCapture(e.pointerId)}catch(_){ }e.preventDefault()});
 frame.addEventListener('pointermove',e=>{if(mode!=='360'||activePointer!==e.pointerId||startX===null)return;rotate(e.clientX-startX);startX=e.clientX});
 const stop=()=>{startX=null;activePointer=null};
@@ -138,7 +139,7 @@ frame.addEventListener('touchmove',e=>{if(mode!=='360'||touchX===null||!e.touche
 frame.addEventListener('touchend',()=>{touchX=null},{passive:true});
 frame.addEventListener('dragstart',e=>e.preventDefault());
 frame.tabIndex=0;
-frame.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();e.stopImmediatePropagation();if(mode==='360'){rotation=(rotation+(e.key==='ArrowLeft'?23:1))%24;render()}else{current=(current+(e.key==='ArrowLeft'?5:1))%6;render()}},true);
+frame.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();e.stopImmediatePropagation();if(mode==='360'){rotation=(rotation+(e.key==='ArrowLeft'?spinCount-1:1))%spinCount;render()}else{current=(current+(e.key==='ArrowLeft'?5:1))%6;render()}},true);
 if(zoom){zoom.onclick=e=>{
  e.preventDefault();
  let dialog=document.getElementById('canonical-loupe');
