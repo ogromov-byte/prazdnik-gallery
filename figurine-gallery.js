@@ -36,7 +36,8 @@ function render(){
  modePhoto.setAttribute('aria-pressed',String(mode==='photo'));
  mode360.setAttribute('aria-pressed',String(mode==='360'));
  const src=mode==='360'?spins[rotation]:stills[current];
- img.src=src;
+ img.onerror=()=>{if(mode==='photo'&&!img.dataset.fallback){img.dataset.fallback='1';img.src=spins[source[current]-1]}};
+ img.dataset.fallback='';img.src=src;
  img.alt=mode==='360'?'Фигурка, 360°, кадр '+(rotation+1)+' из 24':'Фигурка, фото '+(current+1)+' из 6';
  counter.hidden=mode==='360';counter.textContent=mode==='360'?'':(current+1)+' / 6';
  strip.hidden=mode==='360';
@@ -44,7 +45,7 @@ function render(){
  if(mode==='photo')stills.forEach((file,i)=>{
   if(i===current)return;
   const b=document.createElement('button');b.className='photo-thumbnail';b.type='button';b.setAttribute('aria-label','Ракурс '+angle[i]);
-  const t=document.createElement('img');t.src=file;t.alt='Ракурс '+angle[i];t.draggable=false;b.append(t);
+  const t=document.createElement('img');t.alt='Ракурс '+angle[i];t.draggable=false;t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};t.src=file;b.append(t);
   b.onclick=()=>{current=i;render()};strip.append(b);
  });
  if(note)note.textContent=mode==='360'?'Поверни фигурку мышью или пальцем':'Шесть ракурсов работы';
