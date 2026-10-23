@@ -2,7 +2,7 @@ from PIL import Image, ImageFilter
 from pathlib import Path
 import json
 root=Path("assets/piero")
-src=Image.open(root/"photo-06-showcase.webp").convert("RGBA")
+src=Image.open(root/"spin-22.webp").convert("RGBA")
 alpha=src.getchannel("A")
 bbox=alpha.getbbox()
 if not bbox: raise RuntimeError("Piero source missing alpha silhouette")
@@ -28,6 +28,6 @@ canvas.alpha_composite(figure,(pad,margin))
 if canvas.getchannel("A").getextrema()!=(0,255): raise RuntimeError("Alpha not preserved")
 dest=root/"studio-home-680.webp"
 canvas.save(dest,"WEBP",quality=82,method=6,exact=True)
-audit={"source":str(root/"photo-06-showcase.webp"),"input_size":list(src.size),"body_top":y0+hat_h,"body_bottom":y1,"scale":factor,"target_body_px":680,"output_body_px":round(body_h*factor),"output_image_size":list(canvas.size),"output_alpha_bbox":list(canvas.getchannel("A").getbbox())}
+audit={"source":str(root/"spin-22.webp"),"input_size":list(src.size),"body_top":y0+hat_h,"body_bottom":y1,"scale":factor,"target_body_px":680,"output_body_px":round(body_h*factor),"output_image_size":list(canvas.size),"output_alpha_bbox":list(canvas.getchannel("A").getbbox())}
 (root/"studio-home-680-audit.json").write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n")
 print(audit)
