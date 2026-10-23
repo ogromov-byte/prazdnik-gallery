@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/piero-680.yml'
+      - 'scripts/build_piero_680.py'
   workflow_dispatch:
 permissions:
   contents: write
