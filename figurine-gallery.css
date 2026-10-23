@@ -1,18 +1,68 @@
-/* Shared display standard: equal visual body size and equal external top/bottom padding. */
-.product-hero .photo-view.canonical-figurine .photo-frame{height:760px!important;min-height:760px!important;overflow:hidden;display:flex!important;align-items:center!important;justify-content:center!important;position:relative}
-.product-hero .photo-view.canonical-figurine.rabbit-extra-ear .photo-frame{height:850px!important;min-height:850px!important}
-.product-hero .photo-view.canonical-figurine .photo-frame img{display:block!important;max-width:none!important;flex:none!important;opacity:1!important;filter:none!important;position:static!important;margin:0 auto!important}
-.product-hero .photo-view.canonical-figurine #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
-.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:135px!important;min-width:0!important;padding:4px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:0!important;background:transparent!important}
-.product-hero .photo-view.canonical-figurine #photo-thumbnails img{height:100%!important;width:100%!important;object-fit:contain!important}
+/* Stable product gallery: images must never be clipped or enlarged beyond viewer. */
+.product-hero .photo-view.canonical-figurine .photo-frame{
+ position:relative!important;
+ height:720px!important;
+ min-height:0!important;
+ width:100%!important;
+ overflow:visible!important;
+ display:flex!important;
+ justify-content:center!important;
+ align-items:center!important;
+ padding:0 18px!important;
+}
+.product-hero .photo-view.canonical-figurine.rabbit-extra-ear .photo-frame{height:790px!important}
+.product-hero .photo-view.canonical-figurine .photo-frame #main-photo{
+ position:static!important;
+ display:block!important;
+ transform:none!important;
+ height:100%!important;
+ max-height:100%!important;
+ max-width:100%!important;
+ width:auto!important;
+ object-fit:contain!important;
+ object-position:center!important;
+ margin:0 auto!important;
+ opacity:1!important;
+ visibility:visible!important;
+ filter:none!important;
+ flex:0 1 auto!important;
+ -webkit-mask-image:none!important;
+ mask-image:none!important;
+}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails{
+ display:grid!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ gap:10px!important;
+ padding:0!important;
+ margin:18px 0 8px!important;
+}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{
+ position:relative!important;
+ height:122px!important;
+ border:0!important;
+ min-width:0!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ background:transparent!important;
+ padding:4px!important;
+}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail img{
+ display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;transform:none!important;
+}
 .product-hero .photo-view.canonical-figurine.rotation #photo-thumbnails{display:none!important}
-.product-hero .photo-view.canonical-figurine .photo-frame>button{display:none!important}
-.product-hero .photo-view.canonical-figurine.rotation .photo-frame:after{content:none!important;display:none!important}
-.product-hero .photo-view.canonical-figurine.rotation .photo-frame img{opacity:1!important}
+.product-hero .photo-view.canonical-figurine .photo-frame > button{display:none!important}
+.product-hero .photo-view.canonical-figurine.rotation .photo-frame:after{display:none!important;content:none!important}
+.product-hero .photo-view.canonical-figurine.rotation #main-photo{opacity:1!important}
+.product-hero .photo-view.canonical-figurine .photo-toolbar .view-modes{display:flex!important}
+.product-hero .photo-view.canonical-figurine .photo-toolbar .view-modes button{display:inline-flex!important}
 .product-hero .photo-view.canonical-figurine.rotation .photo-frame{touch-action:none;cursor:grab}
-.product-hero .photo-view.canonical-figurine .view-modes{display:flex!important}
-.product-hero .photo-view.canonical-figurine .view-modes button{display:inline-flex!important}
-#canonical-loupe{border:0;background:#f6f1e9;padding:44px;max-width:95vw;max-height:95vh;box-shadow:0 20px 80px #0007}
-#canonical-loupe::backdrop{background:#000b}#canonical-loupe img{max-width:85vw;max-height:80vh;object-fit:contain}
-#canonical-loupe .canonical-close{position:absolute;right:10px;top:10px;border:0;background:transparent;font-size:30px;cursor:pointer}
-@media(max-width:760px){.product-hero .photo-view.canonical-figurine .photo-frame{height:590px!important;min-height:590px!important}.product-hero .photo-view.canonical-figurine.rabbit-extra-ear .photo-frame{height:675px!important;min-height:675px!important}.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:100px!important}}
+#canonical-loupe{max-width:94vw;max-height:94vh;border:0;background:#fbf8f1;padding:48px;box-shadow:0 20px 80px #0008}
+#canonical-loupe::backdrop{background:#000b}
+#canonical-loupe img{max-width:85vw;max-height:78vh;object-fit:contain}
+#canonical-loupe .canonical-close{position:absolute;right:10px;top:10px;border:0;background:transparent;font-size:28px;cursor:pointer}
+@media(max-width:760px){
+.product-hero .photo-view.canonical-figurine .photo-frame{height:510px!important;padding:0 8px!important}
+.product-hero .photo-view.canonical-figurine.rabbit-extra-ear .photo-frame{height:560px!important}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:90px!important}
+}
