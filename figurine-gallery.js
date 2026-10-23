@@ -66,6 +66,8 @@ view.classList.add('canonical-figurine');
 if(slug==='zaychik')view.classList.add('rabbit-extra-ear');
 let current=0,rotation=0,mode='photo',startX=null,delta=0,activePointer=null;
 let fitEpoch=0;
+let previewEpoch=0;
+const pieroPreviewCache=new Map();
 
 
 function fitImage(){
@@ -89,11 +91,26 @@ function render(){
  img.alt=mode==='360'?'Фигурка, 360°, кадр '+(rotation+1)+' из 24':'Фигурка, фото '+(current+1)+' из 6';
  counter.hidden=mode==='360';counter.textContent=mode==='360'?'':(current+1)+' / 6';
  strip.hidden=mode==='360';
- strip.replaceChildren();
+ if(mode==='photo')strip.replaceChildren();
  if(mode==='photo')stills.forEach((file,i)=>{
   if(i===current)return;
   const b=document.createElement('button');b.className='photo-thumbnail';b.type='button';b.setAttribute('aria-label','Ракурс '+angle[i]);
-  const t=document.createElement('img');t.alt='Ракурс '+angle[i];t.draggable=false;t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};if(slug==='piero')pieroPreview(t,source[i]);else t.src=file;b.append(t);
+  const t=document.createElement('img');t.alt='';t.draggable=false;
+  t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};
+  if(slug==='piero'){
+   const cached=pieroPreviewCache.get(source[i]);
+   if(cached)t.src=cached;
+   else{
+    t.src=spins[source[i]-1];
+    const targetFrame=source[i];
+    pieroPreview({set src(value){
+      pieroPreviewCache.set(targetFrame,value);
+      if(t.isConnected&&t.dataset.frame===String(targetFrame))t.src=value;
+    }},targetFrame);
+   }
+   t.dataset.frame=String(source[i]);
+  }else t.src=file;
+  b.append(t);
   b.onclick=()=>{current=i;render()};strip.append(b);
  });
  if(note)note.textContent=mode==='360'?'Поверни фигурку мышью или пальцем':'Шесть ракурсов работы';
