@@ -9,6 +9,30 @@ const angle=['0°','45°','90°','180°','−90°','−45°'];
 const stills=source.map((_,i)=>slug==='piero'&&i===4?base+'spin-19.webp':base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp');
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
 const spins=Array.from({length:24},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
+function pieroPreview(img,frame){
+ const url=spins[frame-1],raw=new Image();
+ raw.onload=()=>{
+  try{
+   const c=document.createElement('canvas');c.width=raw.naturalWidth;c.height=raw.naturalHeight;
+   const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(raw,0,0);
+   const pixels=ctx.getImageData(0,0,c.width,c.height).data;
+   let left=c.width,top=c.height,right=-1,bottom=-1;
+   const stride=2;
+   for(let y=0;y<c.height;y+=stride)for(let x=0;x<c.width;x+=stride){
+    if(pixels[(y*c.width+x)*4+3]>20){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}
+   }
+   if(right<left||bottom<top){img.src=url;return}
+   const w=right-left+2,h=bottom-top+2,out=document.createElement('canvas');
+   out.width=180;out.height=220;const o=out.getContext('2d');
+   const k=Math.min(162/w,204/h);
+   o.drawImage(c,left,top,w,h,(180-w*k)/2,(220-h*k)/2,w*k,h*k);
+   img.src=out.toDataURL('image/png');
+  }catch(e){img.src=url}
+ };
+ raw.onerror=()=>{img.src=url};
+ raw.src=url;
+}
+
 const view=document.querySelector('.product-hero .photo-view'),frame=view?.querySelector('.photo-frame'),img=document.getElementById('main-photo');
 const strip=document.getElementById('photo-thumbnails'),counter=document.getElementById('photo-count');
 const modePhoto=document.getElementById('mode-photo'),mode360=document.getElementById('mode-360');
@@ -45,7 +69,7 @@ function render(){
  if(mode==='photo')stills.forEach((file,i)=>{
   if(i===current)return;
   const b=document.createElement('button');b.className='photo-thumbnail';b.type='button';b.setAttribute('aria-label','Ракурс '+angle[i]);
-  const t=document.createElement('img');t.alt='Ракурс '+angle[i];t.draggable=false;t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};t.src=file;b.append(t);
+  const t=document.createElement('img');t.alt='Ракурс '+angle[i];t.draggable=false;t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};if(slug==='piero')pieroPreview(t,source[i]);else t.src=file;b.append(t);
   b.onclick=()=>{current=i;render()};strip.append(b);
  });
  if(note)note.textContent=mode==='360'?'Поверни фигурку мышью или пальцем':'Шесть ракурсов работы';
