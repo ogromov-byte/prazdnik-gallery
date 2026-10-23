@@ -140,11 +140,36 @@ frame.addEventListener('dragstart',e=>e.preventDefault());
 frame.tabIndex=0;
 frame.addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft'].includes(e.key))return;e.preventDefault();e.stopImmediatePropagation();if(mode==='360'){rotation=(rotation+(e.key==='ArrowLeft'?23:1))%24;render()}else{current=(current+(e.key==='ArrowLeft'?5:1))%6;render()}},true);
 if(zoom){zoom.onclick=e=>{
- e.preventDefault();const p=mode==='360'?spins[rotation]:large[current];
+ e.preventDefault();
  let dialog=document.getElementById('canonical-loupe');
- if(!dialog){dialog=document.createElement('dialog');dialog.id='canonical-loupe';dialog.innerHTML='<button class="canonical-close" aria-label="Закрыть">×</button><img alt="Увеличенное изображение">';document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();dialog.addEventListener('click',ev=>{if(ev.target===dialog)dialog.close()});}
- dialog.querySelector('img').src=p;dialog.showModal();
+ if(!dialog){
+  dialog=document.createElement('dialog');dialog.id='canonical-loupe';
+  dialog.className='canonical-loupe-full';
+  dialog.innerHTML='<button class="canonical-close" type="button" aria-label="Закрыть">×</button><button class="canonical-arrow canonical-prev" type="button" aria-label="Предыдущее фото">‹</button><div class="canonical-image-wrap"><img alt="Увеличенное изображение"></div><button class="canonical-arrow canonical-next" type="button" aria-label="Следующее фото">›</button><div class="canonical-zoom-hint">Нажмите на изображение для увеличения</div>';
+  document.body.append(dialog);
+  dialog.querySelector('.canonical-close').onclick=()=>dialog.close();
+  dialog.querySelector('.canonical-prev').onclick=()=>step(-1);
+  dialog.querySelector('.canonical-next').onclick=()=>step(1);
+  dialog.querySelector('.canonical-image-wrap').onclick=()=>dialog.classList.toggle('magnified');
+  dialog.addEventListener('close',()=>dialog.classList.remove('magnified'));
+  dialog.addEventListener('click',ev=>{if(ev.target===dialog)dialog.close()});
+  dialog.addEventListener('keydown',ev=>{
+   if(ev.key==='ArrowLeft'||ev.key==='ArrowRight'){ev.preventDefault();ev.stopPropagation();step(ev.key==='ArrowLeft'?-1:1)}
+  });
+ }
+ let selected=mode==='360'?source.reduce((best,frame,i)=>Math.abs(frame-1-rotation)<Math.abs(source[best]-1-rotation)?i:best,0):current;
+ function show(){
+  dialog.classList.remove('magnified');
+  const picture=dialog.querySelector('.canonical-image-wrap img');
+  picture.alt='Пьеро, ракурс '+(selected+1)+' из 6';
+  picture.src=large[selected];
+  picture.onerror=()=>{picture.onerror=null;picture.src=stills[selected]};
+ }
+ function step(direction){selected=(selected+direction+6)%6;show()}
+ show();
+ if(!dialog.open)dialog.showModal();
 }}
+
 img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 render();
