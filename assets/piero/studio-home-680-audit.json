@@ -1,0 +1,22 @@
+{
+  "source": "assets/piero/photo-06-showcase.webp",
+  "input_size": [
+    720,
+    960
+  ],
+  "body_top": 68,
+  "body_bottom": 940,
+  "scale": 0.7798165137614679,
+  "target_body_px": 680,
+  "output_body_px": 680,
+  "output_image_size": [
+    578,
+    766
+  ],
+  "output_alpha_bbox": [
+    18,
+    25,
+    560,
+    741
+  ]
+}
