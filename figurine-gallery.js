@@ -6,7 +6,7 @@ if(!slug)return;
 const base='assets/'+slug+'/';
 const source=[1,4,7,13,19,22];
 const angle=['0°','45°','90°','180°','−90°','−45°'];
-const stills=source.map((_,i)=>slug==='piero'&&i===4?base+'spin-19.webp':base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp');
+const stills=source.map((frame,i)=>slug==='piero'?base+'spin-'+String(frame).padStart(2,'0')+'.webp':base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp');
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
 const spins=Array.from({length:24},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
 function pieroPreview(img,frame){
