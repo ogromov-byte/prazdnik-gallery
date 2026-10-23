@@ -435,6 +435,34 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
  .collection-editorial{grid-column:1!important;grid-row:auto!important;padding:26px 12px}
  .collection-editorial p{font-size:17px}
 }
+</style><style id="piero-match-kolombina-20261023">
+/* Single-card calibration: match the visual silhouette occupancy of Kolombina.
+   Original Piero frame has ~10% transparent space at top and bottom; this
+   increases the artwork inside the existing card without touching the grid. */
+@media(min-width:761px){
+.collection-grid>.product-card[href="piero.html"] .product-image img{
+ height:115%!important;
+ max-height:none!important;
+ width:auto!important;
+ max-width:none!important;
+ flex:none!important;
+ object-fit:contain!important;
+ object-position:center center!important;
+ transform:none!important;
+}
+}
+@media(max-width:760px){
+.collection-grid>.product-card[href="piero.html"] .product-image img{
+ height:115%!important;
+ max-height:none!important;
+ width:auto!important;
+ max-width:none!important;
+ flex:none!important;
+ object-fit:contain!important;
+ object-position:center center!important;
+ transform:none!important;
+}
+}
 </style></head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
