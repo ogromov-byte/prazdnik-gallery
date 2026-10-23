@@ -434,14 +434,40 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
 .footer.footer-reference .footer-reference-nav a:hover{color:#F4EFE5!important}
 </style>
 <style id="homepage-studio-figurines-20261023">
-/* Homepage studio presentation uses a separate angled image, never the product front frame. */
-.collection-grid .product-card .product-image{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:radial-gradient(ellipse at 45% 42%,#f4eee4 0%,#e9dfd0 70%,#dfd1be 100%)!important}
-.collection-grid .product-card .product-image:after{content:"";position:absolute;z-index:-1;left:18%;right:18%;bottom:5%;height:14px;border-radius:50%;background:#4e30201c;filter:blur(10px)}
-.collection-grid .product-card .product-image img{object-fit:contain!important;object-position:center center!important;filter:drop-shadow(4px 12px 8px #38271a28)!important;-webkit-mask-image:none!important;mask-image:none!important}
-.collection-grid .product-card[href="zaychik.html"]{grid-column:1 / -1!important;justify-self:center!important;width:min(450px,100%)!important}
-.collection-grid .product-card[href="zaychik.html"] .product-image{height:890px!important;max-height:80vh}
-.collection-grid .product-card[href="zaychik.html"] .product-image img{height:100%!important;width:100%!important;object-fit:contain!important}
-@media(max-width:760px){.collection-grid .product-card[href="zaychik.html"] .product-image{height:650px!important;max-height:none}}
+/* Stable, unclipped studio frames. Keep authentic off-axis studio files separate. */
+.collection-grid .product-card .product-image{
+ position:relative!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ overflow:hidden!important;
+ height:640px!important;
+ min-height:0!important;
+ padding:32px 16px!important;
+ background:radial-gradient(ellipse at 50% 40%,#f5efe6 0%,#e9dfd0 95%)!important;
+}
+.collection-grid .product-card .product-image img{
+ display:block!important;
+ position:static!important;
+ transform:none!important;
+ height:100%!important;
+ max-height:100%!important;
+ width:auto!important;
+ max-width:100%!important;
+ object-fit:contain!important;
+ object-position:center!important;
+ filter:drop-shadow(4px 13px 8px #38271a25)!important;
+ -webkit-mask-image:none!important;mask-image:none!important;
+}
+.collection-grid .product-card[href="zaychik.html"]{
+ grid-column:1 / -1!important;justify-self:center!important;width:min(390px,100%)!important
+}
+.collection-grid .product-card[href="zaychik.html"] .product-image{height:700px!important;max-height:none!important}
+.collection-grid .product-card[href="zaychik.html"] .product-image img{height:100%!important;max-height:100%!important;width:auto!important;max-width:100%!important}
+@media(max-width:760px){
+ .collection-grid .product-card .product-image{height:470px!important}
+ .collection-grid .product-card[href="zaychik.html"] .product-image{height:550px!important}
+}
 </style></head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
@@ -519,5 +545,5 @@ if(dialog){
 }
 </script>
 <div class="cart-shade" id="cart-shade"></div><aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true" inert><div class="cart-drawer-header"><h2 id="cart-title">Корзина</h2><button class="cart-close" id="cart-close" aria-label="Закрыть корзину">×</button></div><div class="cart-items" id="drawer-items"></div><div class="cart-total" id="drawer-total"></div><p class="cart-note">Оформление заказа и оплата будут подключены перед запуском магазина.</p></aside><script>(()=>{const drawer=document.getElementById('cart-drawer'),shade=document.getElementById('cart-shade'),close=document.getElementById('cart-close');let previousFocus,scrollStyle;const read=()=>{try{return JSON.parse(localStorage.getItem('gallery-cart')||'[]')}catch(e){return []}};const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function render(){const items=read();document.getElementById('drawer-items').innerHTML=items.length?items.map((x,i)=>`<div class="cart-row"><strong>${escape(x.name)}</strong><div>${x.size} см · ${x.qty} шт.</div><div>${(x.price*x.qty).toLocaleString('ru-RU')} ₽</div><button class="cart-remove" data-remove="${i}">Убрать</button></div>`).join(''):'В корзине пока нет работ';document.getElementById('drawer-total').textContent=items.length?'Итого: '+items.reduce((n,x)=>n+x.price*x.qty,0).toLocaleString('ru-RU')+' ₽':'';document.querySelectorAll('.badge').forEach(b=>b.textContent=items.reduce((n,x)=>n+x.qty,0));document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{items.splice(Number(b.dataset.remove),1);localStorage.setItem('gallery-cart',JSON.stringify(items));render()})}function open(){previousFocus=document.activeElement;render();scrollStyle=document.body.style.overflow;document.body.style.overflow='hidden';drawer.inert=false;drawer.setAttribute('aria-hidden','false');drawer.classList.add('open');shade.classList.add('open');close.focus()}function hide(){drawer.classList.remove('open');shade.classList.remove('open');drawer.setAttribute('aria-hidden','true');drawer.inert=true;document.body.style.overflow=scrollStyle||'';previousFocus?.focus()}document.querySelectorAll('[aria-label="Корзина"],a[href="cart.html"]').forEach(b=>{b.removeAttribute('onclick');b.addEventListener('click',e=>{e.preventDefault();open()})});close.onclick=hide;shade.onclick=hide;document.addEventListener('keydown',e=>{if(!drawer.classList.contains('open'))return;if(e.key==='Escape')hide();if(e.key==='Tab'){const all=[...drawer.querySelectorAll('button,a')];const first=all[0],last=all[all.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});render();window.addEventListener('storage',render);})();</script><dialog class="collection-entry" id="collection-entry" aria-labelledby="collection-entry-title"><h2 id="collection-entry-title">Моя коллекция</h2><p>Здесь ты сможешь видеть собранных героев и выбирать тех, кого ещё не хватает.</p><p>Вход и сохранение коллекции появятся после подключения личного кабинета.</p><form method="dialog"><button>Понятно</button></form></dialog><script>(()=>{const dialog=document.getElementById('collection-entry');document.getElementById('collection-open').onclick=()=>dialog.showModal();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});})();</script><script src="assets/zaychik/showcase-cutout.js?v=2"></script>
-<script defer src="studio-home-sizing.js?v=1"></script></body>
+</body>
 </html>
