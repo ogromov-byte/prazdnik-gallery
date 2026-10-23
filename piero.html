@@ -509,6 +509,47 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
  height:100%!important;
  background:transparent!important;
 }
+</style><style id="piero-fullscreen-loupe">
+#canonical-loupe.canonical-loupe-full{
+ position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;
+ max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;
+ border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important;
+ overflow:hidden!important;box-sizing:border-box!important;
+}
+#canonical-loupe.canonical-loupe-full::backdrop{background:#fff!important}
+#canonical-loupe .canonical-image-wrap{
+ position:absolute;inset:2vh 8vw 5vh!important;display:flex;align-items:center;justify-content:center;
+ overflow:auto;cursor:zoom-in;touch-action:pan-x pan-y;
+}
+#canonical-loupe .canonical-image-wrap img{
+ display:block;width:auto!important;height:auto!important;max-width:100%!important;
+ max-height:100%!important;object-fit:contain!important;transition:transform .18s ease;
+ transform-origin:center center;
+}
+#canonical-loupe.magnified .canonical-image-wrap{cursor:zoom-out}
+#canonical-loupe.magnified .canonical-image-wrap img{transform:scale(1.7)}
+#canonical-loupe .canonical-arrow{
+ position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+ width:64px;height:84px;border:0;background:transparent;color:#555;
+ font-size:58px;font-weight:300;cursor:pointer;line-height:1;
+}
+#canonical-loupe .canonical-prev{left:1.5vw}
+#canonical-loupe .canonical-next{right:1.5vw}
+#canonical-loupe .canonical-arrow:hover{color:#111}
+#canonical-loupe .canonical-close{
+ position:absolute!important;top:14px!important;right:24px!important;z-index:4!important;
+ font-size:38px!important;color:#222!important;
+}
+#canonical-loupe .canonical-zoom-hint{
+ position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#777;
+ font-size:13px;pointer-events:none;
+}
+@media(max-width:760px){
+ #canonical-loupe .canonical-image-wrap{inset:5vh 10vw 9vh!important}
+ #canonical-loupe .canonical-arrow{width:34px;font-size:44px}
+ #canonical-loupe .canonical-prev{left:0}
+ #canonical-loupe .canonical-next{right:0}
+}
 </style></head><body data-card-layout="warm" data-figurine="piero"><header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="index.html" aria-label="Галерея Громовой">
         <span class="brand-wordmark">ГАЛЕРЕЯ ГРОМОВОЙ<span class="brand-dot" aria-hidden="true"></span></span>
       </a><span class="series-label">Серия «Праздник»</span></div><button class="menu-toggle" hidden aria-label="Открыть меню" aria-expanded="false"></button><nav class="main-nav" hidden></nav><div class="header-actions" aria-label="Действия"><a href="index.html" aria-label="На главную" title="На главную"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a><button id="collection-open" aria-label="Моя коллекция" title="Моя коллекция"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></button><button aria-label="Корзина" title="Корзина"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.5 12h11L21 7H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span class="badge">0</span></button></div></div></header><main><section class="product-hero"><div class="container product-stage"><div class="photo-view"><div class="photo-frame"><button id="photo-prev" aria-label="Предыдущая фотография">←</button><img id="main-photo" src="assets/piero/photo-01-showcase.webp" alt="Пьеро, фотография 1 из 6"><button id="photo-next" aria-label="Следующая фотография">→</button></div><div class="photo-thumbnails" id="photo-thumbnails"></div><div class="photo-toolbar"><div class="view-modes" aria-label="Режим просмотра"><button id="mode-photo" class="active" aria-pressed="true">Фото</button><button id="mode-360" aria-pressed="false">360°</button></div><span class="photo-count" id="photo-count">1 / 6</span><a href="#" class="detail-link" id="detail-link" aria-label="Рассмотреть работу в высоком качестве" title="Рассмотреть работу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a></div><p class="rotation-note" id="rotation-note">Фотография работы</p></div><div class="product-copy"><p class="eyebrow">Владимир Гвоздев · Серия «Праздник»</p><h1>Пьеро</h1><p class="haiku">Авторская фигурка<br>из серии «Праздник»</p><div class="size-label">Высота фигурки</div><div class="sizes"><button class="selected" data-size="19" aria-pressed="true">19 см</button><button data-size="23" aria-pressed="false">23 см</button></div><p class="price" id="price">5 600 ₽</p><button class="purchase" id="purchase">Добавить в корзину</button><p class="delivery">Композитный материал, ручная роспись.<br>Подарочная упаковка.<br>До пункта СДЭК бесплатно. Отправка в течение трёх дней.</p><div class="cart-status" id="cart-status" aria-live="polite"></div></div></div></section><section class="related-section"><div class="container"><div class="related-heading"><h2>Все дети серии</h2><div class="related-controls"><button id="works-prev" aria-label="Предыдущие герои">←</button><button id="works-next" aria-label="Следующие герои">→</button></div></div><div class="related-grid" id="related-grid"></div><p class="related-count" id="related-count">1, 2, 3 из 9</p></div></section><section class="recent-section" id="recently-viewed" hidden aria-labelledby="recent-title"><div class="container"><h2 id="recent-title">Вы недавно смотрели</h2><div class="recent-grid" id="recent-grid"></div></div></section></main><footer class="footer footer-reference" id="contacts">
