@@ -468,6 +468,24 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
  .collection-grid .product-card .product-image{height:470px!important}
  .collection-grid .product-card[href="zaychik.html"] .product-image{height:550px!important}
 }
+</style><style id="collection-composition-20261023-fix">
+@media(min-width:761px){
+ .collection-grid{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:32px 16px!important;align-items:start!important}
+ .collection-grid .product-card{grid-column:span 2!important;width:100%!important;min-width:0!important}
+ .collection-grid .product-card[href="zaychik.html"]{grid-column:1 / -1!important;justify-self:center!important;width:min(410px,100%)!important}
+ .collection-grid .product-card:nth-child(5){grid-column:2 / span 2!important}
+ .collection-grid .product-card:nth-child(6){grid-column:4 / span 2!important}
+ .collection-grid .product-image{height:560px!important;padding:26px 16px!important;overflow:hidden!important}
+ .collection-grid .product-card[href="zaychik.html"] .product-image{height:660px!important}
+ .collection-grid .product-image img{height:100%!important;width:auto!important;max-width:100%!important;max-height:100%!important;transform:none!important;object-fit:contain!important}
+}
+@media(max-width:760px){
+ .collection-grid{grid-template-columns:1fr!important}
+ .collection-grid .product-card[href="zaychik.html"]{width:100%!important}
+ .collection-grid .product-image{height:460px!important;overflow:hidden!important}
+ .collection-grid .product-card[href="zaychik.html"] .product-image{height:550px!important;overflow:hidden!important}
+ .collection-grid .product-image img{transform:none!important;height:100%!important;max-height:100%!important;max-width:100%!important}
+}
 </style></head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
@@ -501,11 +519,11 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
       <div class="container">
         <div class="section-heading collection-heading"><h2>Герои коллекции</h2></div>
         <div class="collection-grid">
-          <a class="product-card" href="snezhinka.html"><span class="product-image tone-cream"><img src="assets/snezhinka/studio-home.webp" alt="Снежинка" loading="lazy" /></span><span class="product-name">Снежинка</span></a>
           <a class="product-card" href="zaychik.html"><span class="product-image tone-wine"><img src="assets/zaychik/studio-home.webp" alt="Зайчик" loading="lazy"  /></span><span class="product-name">Зайчик</span></a>
           <a class="product-card" href="moryak.html"><span class="product-image tone-green"><img src="assets/moryak/studio-home.webp" alt="Моряк" loading="lazy" /></span><span class="product-name">Моряк</span></a>
           <a class="product-card" href="angel.html"><span class="product-image tone-wine"><img src="assets/angel/studio-home.webp" alt="Ангел" loading="lazy" /></span><span class="product-name">Ангел</span></a>
           <a class="product-card" href="piero.html"><span class="product-image tone-green"><img src="assets/piero/studio-home.webp" alt="Пьеро" loading="lazy" /></span><span class="product-name">Пьеро</span></a>
+          <a class="product-card" href="snezhinka.html"><span class="product-image tone-cream"><img src="assets/snezhinka/studio-home.webp" alt="Снежинка" loading="lazy" /></span><span class="product-name">Снежинка</span></a>
           <a class="product-card" href="kolombina.html"><span class="product-image tone-cream"><img src="assets/3e261e6db5223e6cc269.png" alt="Коломбина" loading="lazy" /></span><span class="product-name">Коломбина</span></a>
           <a class="product-card" href="unicorn.html"><span class="product-image tone-green"><img src="assets/unicorn/studio-home.webp" alt="Девочка с единорогом" loading="lazy" /></span><span class="product-name">Девочка с единорогом</span></a>
           <a class="product-card" href="horse.html"><span class="product-image tone-cream"><img src="assets/horse/studio-home.webp" alt="Мальчик с лошадкой" loading="lazy" /></span><span class="product-name">Мальчик с лошадкой</span></a>
