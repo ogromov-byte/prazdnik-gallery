@@ -151,7 +151,7 @@ if(zoom){zoom.onclick=e=>{
    pic.classList.remove('is-zoomed');
    pic.src=large[dialog._photoIndex];
    pic.onerror=()=>{pic.onerror=null;pic.src=stills[dialog._photoIndex]};
-   pic.alt='Пьеро, ракурс '+(dialog._photoIndex+1)+' из 6';
+   pic.alt=(document.querySelector('.product-copy h1')?.textContent?.trim()||'Фигурка')+', ракурс '+(dialog._photoIndex+1)+' из 6';
    dialog.querySelector('.loupe-index').textContent=(dialog._photoIndex+1)+' / 6';
   };
   const step=dir=>{dialog._photoIndex=(dialog._photoIndex+dir+6)%6;draw()};
