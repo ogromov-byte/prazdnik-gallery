@@ -433,7 +433,16 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
 .footer.footer-reference .footer-socials a:hover,
 .footer.footer-reference .footer-reference-nav a:hover{color:#F4EFE5!important}
 </style>
-</head>
+<style id="homepage-studio-figurines-20261023">
+/* Homepage studio presentation uses a separate angled image, never the product front frame. */
+.collection-grid .product-card .product-image{position:relative!important;isolation:isolate!important;overflow:hidden!important;background:radial-gradient(ellipse at 45% 42%,#f4eee4 0%,#e9dfd0 70%,#dfd1be 100%)!important}
+.collection-grid .product-card .product-image:after{content:"";position:absolute;z-index:-1;left:18%;right:18%;bottom:5%;height:14px;border-radius:50%;background:#4e30201c;filter:blur(10px)}
+.collection-grid .product-card .product-image img{object-fit:contain!important;object-position:center center!important;filter:drop-shadow(4px 12px 8px #38271a28)!important;-webkit-mask-image:none!important;mask-image:none!important}
+.collection-grid .product-card[href="zaychik.html"]{grid-column:1 / -1!important;justify-self:center!important;width:min(450px,100%)!important}
+.collection-grid .product-card[href="zaychik.html"] .product-image{height:890px!important;max-height:80vh}
+.collection-grid .product-card[href="zaychik.html"] .product-image img{height:100%!important;width:100%!important;object-fit:contain!important}
+@media(max-width:760px){.collection-grid .product-card[href="zaychik.html"] .product-image{height:650px!important;max-height:none}}
+</style></head>
 <body>
   <header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="#top" aria-label="Галерея Громовой">
         <span class="brand-wordmark">ГАЛЕРЕЯ ГРОМОВОЙ<span class="brand-dot" aria-hidden="true"></span></span>
@@ -466,14 +475,14 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
       <div class="container">
         <div class="section-heading collection-heading"><h2>Герои коллекции</h2></div>
         <div class="collection-grid">
-          <a class="product-card" href="snezhinka.html"><span class="product-image tone-cream"><img src="assets/snezhinka/photo-01-showcase.webp" alt="Снежинка" loading="lazy" /></span><span class="product-name">Снежинка</span></a>
-          <a class="product-card" href="zaychik.html"><span class="product-image tone-wine"><img src="assets/zaychik/photo-01-showcase.webp?v=3" data-showcase-src="assets/zaychik/photo-01-showcase.webp?v=3" alt="Зайчик" loading="lazy" style="-webkit-mask-image:url(assets/zaychik/spin-01.webp?v=3);mask-image:url(assets/zaychik/spin-01.webp?v=3);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat" /></span><span class="product-name">Зайчик</span></a>
-          <a class="product-card" href="moryak.html"><span class="product-image tone-green"><img src="assets/moryak/photo-01-showcase.webp" alt="Моряк" loading="lazy" /></span><span class="product-name">Моряк</span></a>
-          <a class="product-card" href="angel.html"><span class="product-image tone-wine"><img src="assets/angel/photo-01-showcase.webp" alt="Ангел" loading="lazy" /></span><span class="product-name">Ангел</span></a>
-          <a class="product-card" href="piero.html"><span class="product-image tone-green"><img src="assets/piero/photo-01-showcase.webp" alt="Пьеро" loading="lazy" /></span><span class="product-name">Пьеро</span></a>
+          <a class="product-card" href="snezhinka.html"><span class="product-image tone-cream"><img src="assets/snezhinka/spin-02.webp" alt="Снежинка" loading="lazy" /></span><span class="product-name">Снежинка</span></a>
+          <a class="product-card" href="zaychik.html"><span class="product-image tone-wine"><img src="assets/zaychik/spin-24.webp" data-showcase-src="assets/zaychik/photo-01-showcase.webp?v=3" alt="Зайчик" loading="lazy"  /></span><span class="product-name">Зайчик</span></a>
+          <a class="product-card" href="moryak.html"><span class="product-image tone-green"><img src="assets/moryak/spin-02.webp" alt="Моряк" loading="lazy" /></span><span class="product-name">Моряк</span></a>
+          <a class="product-card" href="angel.html"><span class="product-image tone-wine"><img src="assets/angel/spin-24.webp" alt="Ангел" loading="lazy" /></span><span class="product-name">Ангел</span></a>
+          <a class="product-card" href="piero.html"><span class="product-image tone-green"><img src="assets/piero/spin-02.webp" alt="Пьеро" loading="lazy" /></span><span class="product-name">Пьеро</span></a>
           <a class="product-card" href="kolombina.html"><span class="product-image tone-cream"><img src="assets/3e261e6db5223e6cc269.png" alt="Коломбина" loading="lazy" /></span><span class="product-name">Коломбина</span></a>
-          <a class="product-card" href="unicorn.html"><span class="product-image tone-green"><img src="assets/unicorn/photo-01-showcase.webp" alt="Девочка с единорогом" loading="lazy" /></span><span class="product-name">Девочка с единорогом</span></a>
-          <a class="product-card" href="horse.html"><span class="product-image tone-cream"><img src="assets/horse/photo-01-showcase.webp" alt="Мальчик с лошадкой" loading="lazy" /></span><span class="product-name">Мальчик с лошадкой</span></a>
+          <a class="product-card" href="unicorn.html"><span class="product-image tone-green"><img src="assets/unicorn/spin-24.webp" alt="Девочка с единорогом" loading="lazy" /></span><span class="product-name">Девочка с единорогом</span></a>
+          <a class="product-card" href="horse.html"><span class="product-image tone-cream"><img src="assets/horse/spin-02.webp" alt="Мальчик с лошадкой" loading="lazy" /></span><span class="product-name">Мальчик с лошадкой</span></a>
           <a class="product-card" href="teddy.html"><span class="product-image tone-wine"><img src="assets/8d58b556cd603644dfa2.png" alt="Мальчик с мишкой" loading="lazy" /></span><span class="product-name">Мальчик с мишкой</span></a>
         </div>
       </div>
