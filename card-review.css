@@ -58,3 +58,12 @@ body[data-card-layout="warm"] .related-item img{height:480px;background:#eee7db}
 .recent-image-frame img{height:480px;width:100%;object-fit:contain;display:block;background:transparent;box-sizing:border-box}
 .recent-grid .recent-item[href="zaychik.html"] .recent-image-frame img{transform:scale(1.35)!important;transform-origin:center center!important;padding:0!important}
 @media(max-width:760px){.recent-image-frame{height:480px}}
+
+/* Piero calibrated recent-image: 480 px body in 549 px uncut image. */
+@media(min-width:1051px){
+.recent-grid .recent-item[href="piero.html"] .recent-image-frame{height:549px!important;overflow:visible!important}
+.recent-grid .recent-item[href="piero.html"] .recent-image-frame img{width:230px!important;height:549px!important;max-width:100%!important;max-height:none!important;padding:0!important;object-fit:contain!important;transform:none!important;background:transparent!important}
+}
+@media(max-width:1050px){
+.recent-grid .recent-item[href="piero.html"] .recent-image-frame img{padding:0!important;transform:none!important;object-fit:contain!important}
+}
