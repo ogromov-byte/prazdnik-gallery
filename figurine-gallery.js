@@ -18,37 +18,15 @@ view.classList.add('canonical-figurine');
 if(slug==='zaychik')view.classList.add('rabbit-extra-ear');
 let current=0,rotation=0,mode='photo',startX=null,delta=0,activePointer=null;
 let fitEpoch=0;
-const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-const format=(i)=>String(i+1).padStart(2,'0');
+
+
 function fitImage(){
- const epoch=++fitEpoch;
- const test=new Image();
- test.onload=()=>{
-  if(epoch!==fitEpoch)return;
-  try{
-   const can=document.createElement('canvas'),width=130,height=Math.max(1,Math.round(test.naturalHeight*130/test.naturalWidth));
-   can.width=width;can.height=height;
-   const ctx=can.getContext('2d',{willReadFrequently:true});
-   ctx.drawImage(test,0,0,width,height);
-   const data=ctx.getImageData(0,0,width,height).data;
-   let top=height,bottom=0,count=0;
-   for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-    if(data[(y*width+x)*4+3]>55){top=Math.min(top,y);bottom=Math.max(bottom,y+1);count++}
-   }
-   if(!count)return;
-   const visible=(bottom-top)/height;
-   const center=(top+bottom)/(2*height);
-   const room=frame.getBoundingClientRect().height;
-   const desired=slug==='zaychik'?room-72:room-94;
-   const fitted=clamp(desired/visible,room*.65,room*2.6);
-   img.style.setProperty('height',fitted+'px','important');
-   img.style.setProperty('width','auto','important');
-   img.style.setProperty('max-height','none','important');
-   img.style.setProperty('object-fit','contain','important');
-   img.style.setProperty('transform','translateY('+((.5-center)*fitted)+'px)','important');
-  }catch(_){img.style.transform='none'}
- };
- test.src=img.currentSrc||img.src;
+ img.style.removeProperty('transform');
+ img.style.removeProperty('height');
+ img.style.removeProperty('width');
+ img.style.removeProperty('max-height');
+ img.style.removeProperty('max-width');
+ img.style.removeProperty('object-fit');
 }
 function render(){
  view.classList.toggle('rotation',mode==='360');
