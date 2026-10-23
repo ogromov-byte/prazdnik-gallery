@@ -961,7 +961,7 @@ const view=document.querySelector('.photo-view');function setMode(rotation){view
  ];
  const angles=['0°','45°','90°','180°','−90°','−45°'];
  const sourceIndices=[1,4,7,13,19,22];
- const masks=sourceIndices.map(n=>'assets/zaychik/spin-'+String(n).padStart(2,'0')+'.webp');
+ const masks=sourceIndices.map(n=>'assets/zaychik/spin-'+String(n).padStart(2,'0')+'.webp?rabbit-replacement=20261023');
  const spins=Array.from({length:24},(_,i)=>'assets/zaychik/spin-'+String(i+1).padStart(2,'0')+'.webp?rabbit-replacement=20261023');
  let stillIndex=0,spinIndex=0,spinMode=false,dragging=false,lastX=0,accum=0,activePointer=null,touchX=null;
  img.draggable=false;
