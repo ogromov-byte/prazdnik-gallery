@@ -174,5 +174,24 @@ if(zoom){zoom.onclick=e=>{
 
 img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
+
+// Only approved, actually published figurines participate in viewing history.
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp'}};
+try{
+ const key='prazdnik-figurine-recent';
+ const old=JSON.parse(localStorage.getItem(key)||'[]');
+ const values=Array.isArray(old)?old.filter(x=>typeof x==='string'&&recentKnown[x]&&x!==slug):[];
+ localStorage.setItem(key,JSON.stringify([slug,...values].slice(0,10)));
+ const box=document.getElementById('recently-viewed'),grid=document.getElementById('recent-grid');
+ if(box&&grid&&values.length){
+  for(const id of values){
+   const item=recentKnown[id],a=document.createElement('a');a.href=item.url;
+   const img=document.createElement('img');img.src=item.image;img.alt=item.name;img.loading='lazy';
+   const cap=document.createElement('span');cap.textContent=item.name;
+   a.append(img,cap);grid.append(a);
+  }
+  box.hidden=false;
+ }
+}catch(_){}
 render();
 })();
