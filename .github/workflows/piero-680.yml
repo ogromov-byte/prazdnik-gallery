@@ -1,0 +1,25 @@
+name: Produce Piero 680px transparent image
+on:
+  push:
+    paths:
+      - '.github/workflows/piero-680.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow==11.3.0
+      - run: python scripts/build_piero_680.py
+      - name: Publish rendered asset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/piero/studio-home-680.webp assets/piero/studio-home-680-audit.json
+          git commit -m "Publish measured transparent Piero image at 680px body" || exit 0
+          git push
