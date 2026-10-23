@@ -5,7 +5,7 @@ description: Публикация фигурок коллекции «Празд
 
 # Добавление фигурки «Праздник»
 
-**Единственный обязательный источник технических требований:** [FIGURINE_ADDING_SKILL.md](../../FIGURINE_ADDING_SKILL.md).
+**Единственный обязательный источник технических требований:** [FIGURINE_ADDING_SKILL.md](../../../FIGURINE_ADDING_SKILL.md).
 
 Перед каждой операцией прочитать актуальный файл `FIGURINE_ADDING_SKILL.md` из ветки `main` репозитория `ogromov-byte/prazdnik-gallery`. Ссылка относительно этой папки: `../../../FIGURINE_ADDING_SKILL.md`.
 
