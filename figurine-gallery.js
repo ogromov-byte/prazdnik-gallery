@@ -15,17 +15,41 @@ function pieroPreview(img,frame){
   try{
    const c=document.createElement('canvas');c.width=raw.naturalWidth;c.height=raw.naturalHeight;
    const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(raw,0,0);
-   const pixels=ctx.getImageData(0,0,c.width,c.height).data;
-   let left=c.width,top=c.height,right=-1,bottom=-1;
-   const stride=2;
-   for(let y=0;y<c.height;y+=stride)for(let x=0;x<c.width;x+=stride){
-    if(pixels[(y*c.width+x)*4+3]>20){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}
+   const image=ctx.getImageData(0,0,c.width,c.height),d=image.data,w=c.width,h=c.height;
+   /* Rotation frames may contain an opaque photographic backdrop. Remove only
+      background connected to the outside, keeping light parts of the artwork. */
+   const corner=[0,(w-1)*4,((h-1)*w)*4,(h*w-1)*4];
+   const bg=[0,1,2].map(k=>corner.reduce((a,p)=>a+d[p+k],0)/4);
+   const seen=new Uint8Array(w*h),stack=[];
+   function eligible(i){
+    const p=i*4;
+    if(d[p+3]<12)return true;
+    const dist=Math.abs(d[p]-bg[0])+Math.abs(d[p+1]-bg[1])+Math.abs(d[p+2]-bg[2]);
+    return dist<55;
+   }
+   function add(i){if(i>=0&&i<w*h&&!seen[i]&&eligible(i)){seen[i]=1;stack.push(i)}}
+   for(let x=0;x<w;x++){add(x);add((h-1)*w+x)}
+   for(let y=0;y<h;y++){add(y*w);add(y*w+w-1)}
+   while(stack.length){
+    const i=stack.pop(),x=i%w;
+    if(x>0)add(i-1);if(x<w-1)add(i+1);
+    if(i>=w)add(i-w);if(i<w*(h-1))add(i+w);
+   }
+   let left=w,top=h,right=-1,bottom=-1;
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const i=y*w+x,p=i*4;
+    if(seen[i])d[p+3]=0;
+    if(d[p+3]>25){left=Math.min(left,x);top=Math.min(top,y);right=Math.max(right,x);bottom=Math.max(bottom,y)}
    }
    if(right<left||bottom<top){img.src=url;return}
-   const w=right-left+2,h=bottom-top+2,out=document.createElement('canvas');
-   out.width=180;out.height=220;const o=out.getContext('2d');
-   const k=Math.min(162/w,204/h);
-   o.drawImage(c,left,top,w,h,(180-w*k)/2,(220-h*k)/2,w*k,h*k);
+   ctx.putImageData(image,0,0);
+   const pad=Math.ceil(Math.max(right-left,bottom-top)*0.035);
+   left=Math.max(0,left-pad);top=Math.max(0,top-pad);
+   right=Math.min(w-1,right+pad);bottom=Math.min(h-1,bottom+pad);
+   const out=document.createElement('canvas');out.width=180;out.height=220;
+   const o=out.getContext('2d'),cw=right-left+1,ch=bottom-top+1;
+   const k=Math.min(170/cw,210/ch);
+   o.drawImage(c,left,top,cw,ch,(180-cw*k)/2,(220-ch*k)/2,cw*k,ch*k);
    img.src=out.toDataURL('image/png');
   }catch(e){img.src=url}
  };
