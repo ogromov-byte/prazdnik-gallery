@@ -91,27 +91,34 @@ function render(){
  img.alt=mode==='360'?'Фигурка, 360°, кадр '+(rotation+1)+' из 24':'Фигурка, фото '+(current+1)+' из 6';
  counter.hidden=mode==='360';counter.textContent=mode==='360'?'':(current+1)+' / 6';
  strip.hidden=mode==='360';
- if(mode==='photo')strip.replaceChildren();
- if(mode==='photo')stills.forEach((file,i)=>{
-  if(i===current)return;
-  const b=document.createElement('button');b.className='photo-thumbnail';b.type='button';b.setAttribute('aria-label','Ракурс '+angle[i]);
-  const t=document.createElement('img');t.alt='';t.draggable=false;
-  t.onerror=()=>{if(!t.dataset.fallback){t.dataset.fallback='1';t.src=spins[source[i]-1]}};
-  if(slug==='piero'){
-   const cached=pieroPreviewCache.get(source[i]);
-   if(cached)t.src=cached;
-   else{
-    t.src=spins[source[i]-1];
-    const targetFrame=source[i];
+ // Keep all six preview DOM nodes mounted. No flash, image reload, or angle text on selection.
+ if(!strip.dataset.stablePreviews){
+  strip.dataset.stablePreviews='1';
+  strip.replaceChildren();
+  stills.forEach((file,i)=>{
+   const button=document.createElement('button');button.type='button';
+   button.className='photo-thumbnail';button.setAttribute('aria-label','Ракурс '+angle[i]);
+   const thumb=document.createElement('img');thumb.alt='';thumb.draggable=false;
+   thumb.onerror=()=>{if(!thumb.dataset.fallback){thumb.dataset.fallback='1';thumb.src=spins[source[i]-1]}};
+   if(slug==='piero'){
+    thumb.src=spins[source[i]-1];
     pieroPreview({set src(value){
-      pieroPreviewCache.set(targetFrame,value);
-      if(t.isConnected&&t.dataset.frame===String(targetFrame))t.src=value;
-    }},targetFrame);
-   }
-   t.dataset.frame=String(source[i]);
-  }else t.src=file;
-  b.append(t);
-  b.onclick=()=>{current=i;render()};strip.append(b);
+     pieroPreviewCache.set(source[i],value);
+     if(thumb.isConnected)thumb.src=value;
+    }},source[i]);
+   }else thumb.src=file;
+   button.append(thumb);
+   button.onclick=()=>{
+    if(mode!=='photo'||current===i)return;
+    const next=new Image();next.src=stills[i];
+    const apply=()=>{current=i;render()};
+    if(next.complete)apply();else{next.onload=apply;next.onerror=apply}
+   };
+   strip.append(button);
+  });
+ }
+ [...strip.children].forEach((button,i)=>{
+  button.style.setProperty('display',mode==='photo'&&i!==current?'':'none','important');
  });
  if(note)note.textContent=mode==='360'?'Поверни фигурку мышью или пальцем':'Шесть ракурсов работы';
  fitImage();
