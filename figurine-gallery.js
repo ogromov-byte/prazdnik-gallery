@@ -7,9 +7,9 @@ const base='assets/'+slug+'/';
 const source=slug==='moryak'?[1,4,7,12,18,21]:[1,4,7,13,19,22];
 const spinCount=slug==='moryak'?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
-const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-portrait':''));
+const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-std':''));
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
-const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+(slug==='moryak'?'?v=20261024-portrait360':''));
+const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+(slug==='moryak'?'?v=20261024-std':''));
 function pieroPreview(img,frame){
  const url=spins[frame-1],raw=new Image();
  raw.onload=()=>{
@@ -176,7 +176,7 @@ img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 
 // Only approved, actually published figurines participate in viewing history.
-const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-480'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp'}};
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-std'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp'}};
 try{
  const key='prazdnik-figurine-recent';
  const old=JSON.parse(localStorage.getItem(key)||'[]');

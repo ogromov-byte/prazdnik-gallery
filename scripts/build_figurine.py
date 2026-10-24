@@ -6,7 +6,8 @@ Usage:
 
 config.json (measured by hand on the source photo, see §3 of the standard):
   {"home_frame": 24, "y_head": 1170, "y_base": 5396,
-   "stills": [1, 4, 7, 13, 19, 22]}
+   "stills": [1, 4, 7, 13, 19, 22],
+   "spin_frames": [1, 2, ...]}   # optional: drop broken/duplicate source frames, never synthesise
 
 Outputs into assets/<slug>/:
   studio-home.webp      257x771, body 680 px, equal top/bottom margins
@@ -89,7 +90,8 @@ def main():
     cfg = json.loads(cfg_path.read_text())
     out = Path("assets") / slug
     out.mkdir(parents=True, exist_ok=True)
-    frames = {n: load(src, n) for n in range(1, 25)}
+    spin_frames = cfg.get("spin_frames", list(range(1, 25)))   # original frame numbers, in turn order
+    frames = {n: load(src, n) for n in spin_frames}
     sizes = {im.size for im in frames.values()}
     if len(sizes) != 1:
         raise SystemExit(f"разные размеры кадров: {sizes}")
@@ -106,10 +108,11 @@ def main():
 
     # 2) 360° — one fixed transform for all 24 frames (camera and turntable axis fixed)
     k_spin = (960 - 2 * 50) / (U[3] - U[1])
-    for n in range(1, 25):
+    for i, n in enumerate(spin_frames, 1):
         place(frames[n], U, k_spin, (720, 960), 50).save(
-            out / f"spin-{n:02d}.webp", "WEBP", quality=84, method=6)
+            out / f"spin-{i:02d}.webp", "WEBP", quality=84, method=6)
     audit["spin"] = {"canvas": [720, 960], "k": round(k_spin, 6), "top": 50,
+                     "count": len(spin_frames), "source_frames": spin_frames,
                      "union_height_output": round((U[3] - U[1]) * k_spin, 1)}
 
     # 3) six card views + loupe — same fixed transform, larger figure
