@@ -176,7 +176,7 @@ img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 
 // Only approved, actually published figurines participate in viewing history.
-const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-std'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp'},teddy:{name:'Мальчик с мишкой',url:'teddy.html',image:'assets/teddy/recent-thumb.webp'}};
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp?v=20261024-studio'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-studio'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp?v=20261024-studio'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp?v=20261024-studio'},teddy:{name:'Мальчик с мишкой',url:'teddy.html',image:'assets/teddy/recent-thumb.webp?v=20261024-studio'}};
 try{
  const key='prazdnik-figurine-recent';
  const old=JSON.parse(localStorage.getItem(key)||'[]');

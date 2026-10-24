@@ -2,7 +2,7 @@
 """Build the standard asset set for one «Праздник» figurine (FIGURINE_ADDING_SKILL.md).
 
 Usage:
-  python3 scripts/build_figurine.py <slug> <source_dir_with_1..24.png> <config.json>
+  python3 scripts/build_figurine.py <slug> <source_dir_with_1..24.png> <config.json> [--home-only]
 
 config.json (measured by hand on the source photo, see §3 of the standard):
   {"home_frame": 24, "y_head": 1170, "y_base": 5396,
@@ -61,6 +61,45 @@ def contact_shadow(fig_rgba, base_y):
         sh = sh.filter(ImageFilter.GaussianBlur(4))
     return sh
 
+def studio_light(fig, base_y):
+    """Deterministic 'studio' look for home / recent images only (approved by Oleg 2026-10-24):
+    local contrast + gentle S-curve + soft key light from upper left, tight contact shadow
+    and wide soft cast shadow, faint glow behind the figure fading exactly to HOME_BG at the edges.
+    Shape, face, paint and colours of the work are not altered."""
+    W, H = fig.size
+    s = H / 771                                   # scale constants to the canvas
+    f = np.array(fig).astype(float); rgb = f[..., :3]
+    lum = rgb.mean(2)
+    blur = np.array(Image.fromarray(lum.clip(0, 255).astype("uint8"))
+                    .filter(ImageFilter.GaussianBlur(14 * s))).astype(float)
+    rgb = rgb + ((lum - blur) * 0.45)[..., None]
+    x = rgb / 255; x = x + 0.10 * (x - 0.5) * (1 - abs(2 * x - 1)); rgb = x * 255
+    yy, xx = np.mgrid[0:H, 0:W]
+    rgb = rgb * (1.07 - 0.14 * ((xx / W) * 0.35 + (yy / H) * 0.65))[..., None]
+    f[..., :3] = rgb.clip(0, 255)
+    lit = Image.fromarray(f.astype("uint8"), "RGBA")
+    d = np.sqrt(((xx - W * 0.5) / (W * 0.62)) ** 2 + ((yy - H * 0.42) / (H * 0.55)) ** 2)
+    bg = np.array(HOME_BG, float)[None, None, :] + (np.clip(1 - d, 0, 1) ** 1.6)[..., None] * np.array([12, 12, 11])
+    edge = np.minimum.reduce([xx, W - 1 - xx, yy, H - 1 - yy])
+    bg = np.where((edge < 6)[..., None], np.array(HOME_BG, float), bg)
+    out = Image.fromarray(bg.clip(0, 255).astype("uint8")).convert("RGBA")
+    a = np.array(fig.getchannel("A")).astype(float) / 255
+    by = int(round(base_y))
+    xs = np.where(a[max(0, by - 6):by].max(0) > 0.5)[0]
+    if len(xs):
+        from PIL import ImageDraw
+        x0, x1 = xs[0], xs[-1]; cx = (x0 + x1) / 2; wd = x1 - x0
+        wide = Image.new("L", fig.size, 0)
+        ImageDraw.Draw(wide).ellipse((cx - wd * .75, by - 6 * s, cx + wd * .75 + 14 * s, by + 12 * s), fill=55)
+        wide = wide.filter(ImageFilter.GaussianBlur(9 * s))
+        tight = Image.new("L", fig.size, 0)
+        ImageDraw.Draw(tight).ellipse((x0 - 2, by - 3 * s, x1 + 2, by + 3 * s), fill=120)
+        tight = tight.filter(ImageFilter.GaussianBlur(2.5 * s))
+        sh = Image.fromarray(np.maximum(np.array(wide), np.array(tight)))
+        out.paste(Image.new("RGBA", fig.size, (55, 45, 35, 255)), (0, 0), sh)
+    out.alpha_composite(lit)
+    return out
+
 def home_image(im, cfg, body, canvas, out):
     H_src = cfg["y_base"] - cfg["y_head"]
     k = body / H_src
@@ -71,10 +110,13 @@ def home_image(im, cfg, body, canvas, out):
     fb = bbox(fig)
     y_head_out = top + (cfg["y_head"] - b[1]) * k
     y_base_out = top + (cfg["y_base"] - b[1]) * k
-    bg = Image.new("RGBA", canvas, HOME_BG + (255,))
-    shadow = contact_shadow(fig, round(y_base_out))
-    bg.paste(Image.new("RGBA", canvas, (60, 50, 40, 255)), (0, 0), shadow)
-    bg.alpha_composite(fig)
+    if cfg.get("studio", True):
+        bg = studio_light(fig, y_base_out)
+    else:
+        bg = Image.new("RGBA", canvas, HOME_BG + (255,))
+        shadow = contact_shadow(fig, round(y_base_out))
+        bg.paste(Image.new("RGBA", canvas, (60, 50, 40, 255)), (0, 0), shadow)
+        bg.alpha_composite(fig)
     bg.convert("RGB").save(out, "WEBP", quality=90, method=6)
     return {
         "file": out.name, "canvas": list(canvas), "H_body_source": H_src,
@@ -105,6 +147,16 @@ def main():
     home = frames[cfg["home_frame"]]
     audit["studio_home"] = home_image(home, cfg, 680, (257, 771), out / "studio-home.webp")
     audit["recent_thumb"] = home_image(home, cfg, 480, (230, 551), out / "recent-thumb.webp")
+
+    if "--home-only" in sys.argv:
+        prev = out / "build-audit.json"
+        if prev.exists():
+            keep = json.loads(prev.read_text())
+            keep.update({k: audit[k] for k in ("studio_home", "recent_thumb", "config")})
+            audit = keep
+        prev.write_text(json.dumps(audit, ensure_ascii=False, indent=1))
+        print(json.dumps({k: audit[k] for k in ("studio_home", "recent_thumb")}, ensure_ascii=False, indent=1))
+        return
 
     # 2) 360° — one fixed transform for all 24 frames (camera and turntable axis fixed)
     k_spin = (960 - 2 * 50) / (U[3] - U[1])
