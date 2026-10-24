@@ -4,8 +4,8 @@
 const slug=document.body.dataset.figurine;
 if(!slug)return;
 const base='assets/'+slug+'/';
-const source=slug==='moryak'?[1,4,7,12,18,21]:[1,4,7,13,19,22];
-const spinCount=slug==='moryak'?23:24;
+const source=slug==='moryak'?[1,4,7,12,18,21]:slug==='snezhinka'?[1,4,7,13,19,21]:[1,4,7,13,19,22];
+const spinCount=(slug==='moryak'||slug==='snezhinka')?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
 const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-std':''));
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
@@ -176,7 +176,7 @@ img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 
 // Only approved, actually published figurines participate in viewing history.
-const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp?v=20261024-studio'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-studio'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp?v=20261024-studio'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp?v=20261024-studio'},teddy:{name:'Мальчик с мишкой',url:'teddy.html',image:'assets/teddy/recent-thumb.webp?v=20261024-studio'},angel:{name:'Ангел с дудочкой',url:'angel.html',image:'assets/angel/recent-thumb.webp?v=20261024-studio'},kolombina:{name:'Коломбина',url:'kolombina.html',image:'assets/kolombina/recent-thumb.webp?v=20261024-studio'}};
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp?v=20261024-studio'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-studio'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp?v=20261024-studio'},horse:{name:'Мальчик с лошадкой',url:'horse.html',image:'assets/horse/recent-thumb.webp?v=20261024-studio'},teddy:{name:'Мальчик с мишкой',url:'teddy.html',image:'assets/teddy/recent-thumb.webp?v=20261024-studio'},angel:{name:'Ангел с дудочкой',url:'angel.html',image:'assets/angel/recent-thumb.webp?v=20261024-studio'},kolombina:{name:'Коломбина',url:'kolombina.html',image:'assets/kolombina/recent-thumb.webp?v=20261024-studio'},snezhinka:{name:'Снежинка',url:'snezhinka.html',image:'assets/snezhinka/recent-thumb.webp?v=20261024-studio'}};
 try{
  const key='prazdnik-figurine-recent';
  const old=JSON.parse(localStorage.getItem(key)||'[]');

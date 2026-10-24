@@ -375,88 +375,183 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
 .footer.footer-reference .footer-socials a:hover,
 .footer.footer-reference .footer-reference-nav a:hover{color:#F4EFE5!important}
 </style>
-<style id="snezhinka-live-20261023">
-.product-hero .photo-view.snezhinka-live #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
-.product-hero .photo-view.snezhinka-live #photo-thumbnails .photo-thumbnail{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0;height:135px;border:0;background:transparent;padding:4px;cursor:pointer}
-.product-hero .photo-view.snezhinka-live #photo-thumbnails .photo-thumbnail img{display:block;width:100%;height:100%;object-fit:contain}
-.product-hero .photo-view.snezhinka-live.rotation #photo-thumbnails{display:none!important}
-.product-hero .photo-view.snezhinka-live .photo-frame>button{display:none!important}
-.product-hero .photo-view.snezhinka-live .photo-frame #main-photo{height:auto;max-height:720px;width:auto;max-width:100%;object-fit:contain}
-.product-hero .photo-view.snezhinka-live.rotation .photo-frame{touch-action:none!important;cursor:grab}
-.product-hero .photo-view.snezhinka-live.rotation .photo-frame #main-photo{height:auto!important;max-height:760px!important;transform:none!important}
-@media(max-width:760px){.product-hero .photo-view.snezhinka-live #photo-thumbnails .photo-thumbnail{height:85px!important}}
-</style><link rel="stylesheet" href="figurine-gallery.css?v=2"></head><body data-card-layout="warm" data-figurine="snezhinka"><header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="index.html" aria-label="Галерея Громовой">
+<style id="piero-live-gallery-style">
+.product-hero .photo-view.piero-live .photo-frame{height:750px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;padding:0 12px!important}
+.product-hero .photo-view.piero-live .photo-frame #main-photo{display:block!important;width:auto!important;height:720px!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform:none!important;opacity:1!important;margin:auto!important}
+.product-hero .photo-view.piero-live .photo-frame>button{display:none!important}
+.product-hero .photo-view.piero-live #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;margin:12px 8px!important}
+.product-hero .photo-view.piero-live #photo-thumbnails button{height:125px!important;padding:2px!important;border:0!important;background:transparent!important}
+.product-hero .photo-view.piero-live #photo-thumbnails img{height:100%!important;width:100%!important;object-fit:contain!important}
+.product-hero .photo-view.piero-live #photo-thumbnails span{display:none!important}
+.product-hero .photo-view.piero-live .photo-toolbar .view-modes{display:flex!important;gap:8px!important}
+.product-hero .photo-view.piero-live.rotation #photo-thumbnails{display:none!important}
+.product-hero .photo-view.piero-live.rotation .photo-frame{height:870px!important}
+.product-hero .photo-view.piero-live.rotation .photo-frame #main-photo{height:840px!important;transform:scale(1.13)!important;cursor:grab!important}
+.product-hero .photo-view.piero-live.rotation .photo-frame:after,.product-hero .photo-view.piero-live .rotation-note{display:none!important}
+@media(max-width:760px){.product-hero .photo-view.piero-live .photo-frame,.product-hero .photo-view.piero-live.rotation .photo-frame{height:clamp(380px,116vw,550px)!important}.product-hero .photo-view.piero-live .photo-frame #main-photo{height:100%!important}.product-hero .photo-view.piero-live #photo-thumbnails button{height:85px!important}}
+</style><style id="piero-gallery-six-spin-active">
+.product-hero .photo-view.piero-live #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
+.product-hero .photo-view.piero-live #photo-thumbnails .photo-thumbnail{display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;background:transparent;border:0;cursor:pointer}
+.product-hero .photo-view.piero-live #photo-thumbnails .photo-thumbnail img{height:100%;width:100%;object-fit:contain}
+.product-hero .photo-view.piero-live.rotation #photo-thumbnails{display:none!important}
+.product-hero .photo-view.piero-live.rotation .photo-frame>button{visibility:hidden!important}
+.product-hero .photo-view.piero-live.rotation .photo-frame:after{display:none!important}
+.product-hero .photo-view.piero-live.rotation #main-photo{opacity:1!important;transform:none!important;max-height:100%!important;object-fit:contain}
+.product-hero .photo-view.piero-live.rotation .photo-frame{touch-action:none;cursor:grab}
+.product-hero .photo-view.piero-live #mode-360{display:inline-flex!important}
+@media(max-width:760px){.product-hero .photo-view.piero-live #photo-thumbnails{gap:5px!important}.product-hero .photo-view.piero-live #photo-thumbnails .photo-thumbnail{height:95px!important}}
+</style><link rel="stylesheet" href="figurine-gallery.css?v=3"><style id="piero-gallery-final-stable">
+/* Unified real-image gallery: no previous placeholder, no arrows, no fake 360 overlay. */
+.product-hero .photo-view.canonical-figurine .photo-frame{height:720px!important;overflow:hidden!important}
+.product-hero .photo-view.canonical-figurine #main-photo{width:auto!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform:none!important;opacity:1!important}
+.product-hero .photo-view.canonical-figurine .photo-frame>button{display:none!important}
+.product-hero .photo-view.canonical-figurine .photo-frame:after{display:none!important;content:none!important}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails[hidden]{display:none!important}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:120px!important}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail img{width:100%!important;height:100%!important;object-fit:contain!important}
+.product-hero .photo-view.canonical-figurine .photo-toolbar .detail-link{visibility:visible!important}
+.product-hero .photo-view.canonical-figurine.rotation .photo-frame{touch-action:none!important;cursor:grab!important}
+.product-hero .photo-view.canonical-figurine.rotation .photo-count{display:none!important}
+@media(max-width:760px){.product-hero .photo-view.canonical-figurine .photo-frame{height:510px!important}.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:84px!important}}
+</style><style id="piero-360-full-stage-20261023">
+/* Canonical 360: complete real frames, no browser zoom/cropping.
+   On desktop preserve the approved 900px Piero image height. */
+@media(min-width:761px){
+ .product-hero .photo-view.canonical-figurine.rotation .photo-frame{
+  height:900px!important;min-height:900px!important;overflow:visible!important;
+ }
+ .product-hero .photo-view.canonical-figurine.rotation .photo-frame #main-photo{
+  height:900px!important;max-height:none!important;width:auto!important;
+  max-width:none!important;flex:0 0 auto!important;object-fit:contain!important;
+  transform:none!important;pointer-events:none!important;
+ }
+ .product-hero .photo-view.canonical-figurine.rotation #photo-thumbnails{display:none!important}
+}
+@media(max-width:760px){
+ .product-hero .photo-view.canonical-figurine.rotation .photo-frame{
+  height:648px!important;min-height:648px!important;overflow:visible!important;
+ }
+ .product-hero .photo-view.canonical-figurine.rotation .photo-frame #main-photo{
+  height:auto!important;max-height:648px!important;width:auto!important;
+  max-width:100%!important;flex:0 1 auto!important;object-fit:contain!important;
+  transform:none!important;pointer-events:none!important;
+ }
+}
+.product-hero .photo-view.canonical-figurine #photo-thumbnails[hidden]{display:none!important}
+.product-hero .photo-view.canonical-figurine.rotation .photo-toolbar{margin-top:0!important}
+.product-hero .photo-view.canonical-figurine.rotation #rotation-note{display:none!important}
+</style><style id="piero-view-mode-contrast">
+/* Current mode is a quiet label; the other mode is the clear clickable action. */
+.product-hero .photo-view.canonical-figurine .photo-toolbar .view-modes button{
+ color:#183c35!important;background:#f3efe8!important;border:1px solid #183c35!important;
+ opacity:1!important;cursor:pointer!important;font-weight:600!important;
+ transition:background-color .15s,color .15s!important;
+}
+.product-hero .photo-view.canonical-figurine .photo-toolbar .view-modes button.active{
+ color:#756f67!important;background:transparent!important;border-color:transparent!important;
+ opacity:1!important;cursor:default!important;font-weight:400!important;
+}
+.product-hero .photo-view.canonical-figurine .photo-toolbar .view-modes button:not(.active):hover{
+ background:#183c35!important;color:#fff!important;
+}
+</style><style id="piero-mode-switch-contrast">
+/* Current mode is a quiet status; the other mode is the clear actionable button. */
+.product-hero .photo-view.canonical-figurine .view-modes button{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ opacity:1!important;visibility:visible!important;
+ color:#fff!important;background:#123e37!important;border:1px solid #123e37!important;
+ font-weight:600!important;cursor:pointer!important;
+ transition:background .15s,color .15s!important
+}
+.product-hero .photo-view.canonical-figurine .view-modes button.active{
+ color:#66736d!important;background:transparent!important;
+ border:1px solid #c3c8c4!important;font-weight:400!important;cursor:default!important
+}
+.product-hero .photo-view.canonical-figurine .view-modes button:not(.active):hover{
+ background:#22594f!important;border-color:#22594f!important
+}
+</style><style id="piero-preview-strip-final">
+/* Five equally sized, visible thumbnail slots; independent of the large image. */
+.product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails{
+ display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ gap:8px!important;margin:10px 0 8px!important;width:100%!important;
+ position:relative!important;z-index:2!important;overflow:visible!important;
+}
+.product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;min-width:0!important;height:125px!important;
+ padding:0!important;margin:0!important;overflow:hidden!important;
+ background:#eae6df!important;border:1px solid #e1ddd5!important;
+}
+.product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail img{
+ display:block!important;width:100%!important;height:100%!important;
+ max-width:100%!important;max-height:100%!important;object-fit:contain!important;
+ object-position:center!important;transform:scale(1.8)!important;
+ transform-origin:center center!important;opacity:1!important;
+}
+.product-hero .photo-view.canonical-figurine:not(.rotation) .photo-toolbar{
+ position:relative!important;z-index:1!important;margin-top:8px!important;
+}
+@media(max-width:760px){
+ .product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail{height:78px!important}
+ .product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail img{transform:scale(1.45)!important}
+}
+</style><style id="piero-preview-no-crop-transparent">
+/* Keep complete silhouette and alpha in all five thumbnails. */
+.product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail{
+ background:transparent!important;
+ overflow:visible!important;
+ border:0!important;
+}
+.product-hero .photo-view.canonical-figurine:not(.rotation) #photo-thumbnails .photo-thumbnail img{
+ transform:none!important;
+ transform-origin:center center!important;
+ object-fit:contain!important;
+ object-position:center center!important;
+ width:100%!important;
+ height:100%!important;
+ background:transparent!important;
+}
+</style><style id="piero-fullscreen-loupe">
+#canonical-loupe{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;background:#fff!important;box-shadow:none!important;overflow:hidden!important}
+#canonical-loupe::backdrop{background:#fff!important}
+#canonical-loupe .loupe-surface{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#canonical-loupe .loupe-photo{display:block;width:auto!important;height:auto!important;max-width:calc(100vw - 150px)!important;max-height:88dvh!important;object-fit:contain!important;cursor:zoom-in;transform:scale(1);transition:transform .2s ease;transform-origin:center center}
+#canonical-loupe .loupe-photo.is-zoomed{transform:scale(1.65);cursor:zoom-out}
+#canonical-loupe .loupe-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:66px;height:90px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#333;font:300 66px/1 sans-serif;cursor:pointer}
+#canonical-loupe .loupe-prev{left:12px}
+#canonical-loupe .loupe-next{right:12px}
+#canonical-loupe .canonical-close{position:absolute;top:15px;right:23px;z-index:5;font:300 40px/1 sans-serif;color:#333;background:transparent;border:0;cursor:pointer}
+#canonical-loupe .loupe-index{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);font:14px/1.4 sans-serif;color:#777}
+@media(max-width:760px){#canonical-loupe .loupe-photo{max-width:calc(100vw - 60px)!important;max-height:85dvh!important}#canonical-loupe .loupe-arrow{width:36px;height:70px;font-size:44px}#canonical-loupe .loupe-prev{left:0}#canonical-loupe .loupe-next{right:0}}
+</style><style id="recent-figurines-clean">
+.recent-section{padding:55px 0 78px;background:#fbf8f1;color:#17211e}
+.recent-section[hidden]{display:none!important}
+.recent-section h2{font-size:clamp(28px,3.5vw,44px);font-weight:400;letter-spacing:-.03em;margin:0 0 32px}
+.recent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.recent-grid a{display:block;color:inherit;text-decoration:none;text-align:center}
+.recent-grid img{display:block;width:auto;max-width:100%;height:auto;object-fit:contain;margin:0 auto}
+.recent-grid span{display:block;font:16px/1.5 'Montserrat',Arial,sans-serif;margin-top:12px}
+@media(max-width:760px){.recent-grid{grid-template-columns:1fr}}
+</style></head><body data-card-layout="warm" data-figurine="snezhinka"><header class="site-header"><div class="container header-inner"><div class="brand-group"><a class="brand" href="index.html" aria-label="Галерея Громовой">
         <span class="brand-wordmark">ГАЛЕРЕЯ ГРОМОВОЙ<span class="brand-dot" aria-hidden="true"></span></span>
-      </a><span class="series-label">Серия «Праздник»</span></div><button class="menu-toggle" hidden aria-label="Открыть меню" aria-expanded="false"></button><nav class="main-nav" hidden></nav><div class="header-actions" aria-label="Действия"><a href="index.html" aria-label="На главную" title="На главную"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a><button id="collection-open" aria-label="Моя коллекция" title="Моя коллекция"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></button><button aria-label="Корзина" title="Корзина"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.5 12h11L21 7H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span class="badge">0</span></button></div></div></header><main><section class="product-hero"><div class="container product-stage"><div class="photo-view"><div class="photo-frame"><button id="photo-prev" aria-label="Предыдущая фотография">←</button><img id="main-photo" src="assets/snezhinka/photo-01-showcase.webp" alt="Снежинка, фотография 1 из ${photos.length}"><button id="photo-next" aria-label="Следующая фотография">→</button></div><div class="photo-thumbnails" id="photo-thumbnails"></div><div class="photo-toolbar"><div class="view-modes" aria-label="Режим просмотра"><button id="mode-photo" class="active" aria-pressed="true">Фото</button><button id="mode-360" aria-pressed="false">360°</button></div><span class="photo-count" id="photo-count">1 / 1</span><a href="#" class="detail-link" id="detail-link" aria-label="Рассмотреть работу в высоком качестве" title="Рассмотреть работу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a></div><p class="rotation-note" id="rotation-note">Фотография работы</p></div><div class="product-copy"><p class="eyebrow">Владимир Гвоздев · Серия «Праздник»</p><h1>Снежинка</h1><p class="haiku">Авторская фигурка<br>из серии «Праздник»</p><div class="size-label">Высота фигурки</div><div class="sizes"><button class="selected" data-size="19" aria-pressed="true">19 см</button><button data-size="23" aria-pressed="false">23 см</button></div><p class="price" id="price">5 600 ₽</p><button class="purchase" id="purchase">Добавить в корзину</button><p class="delivery">Композитный материал, ручная роспись.<br>Подарочная упаковка.<br>До пункта СДЭК бесплатно. Отправка в течение трёх дней.</p><div class="cart-status" id="cart-status" aria-live="polite"></div></div></div></section><section class="related-section"><div class="container"><div class="related-heading"><h2>Все дети серии</h2><div class="related-controls"><button id="works-prev" aria-label="Предыдущие герои">←</button><button id="works-next" aria-label="Следующие герои">→</button></div></div><div class="related-grid" id="related-grid"></div><p class="related-count" id="related-count">1, 2, 3 из 9</p></div></section><section class="recent-section" id="recently-viewed" hidden aria-labelledby="recent-title"><div class="container"><h2 id="recent-title">Вы недавно смотрели</h2><div class="recent-grid" id="recent-grid"></div></div></section></main><footer class="footer footer-reference" id="contacts">
+      </a><span class="series-label">Серия «Праздник»</span></div><button class="menu-toggle" hidden aria-label="Открыть меню" aria-expanded="false"></button><nav class="main-nav" hidden></nav><div class="header-actions" aria-label="Действия"><a href="index.html" aria-label="На главную" title="На главную"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></a><button id="collection-open" aria-label="Моя коллекция" title="Моя коллекция"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></button><button aria-label="Корзина" title="Корзина"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l2.5 12h11L21 7H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span class="badge">0</span></button></div></div></header><main><section class="product-hero"><div class="container product-stage"><div class="photo-view"><div class="photo-frame"><button id="photo-prev" aria-label="Предыдущая фотография">←</button><img id="main-photo" src="assets/snezhinka/photo-01-showcase.webp" alt="Снежинка, фотография 1 из 6"><button id="photo-next" aria-label="Следующая фотография">→</button></div><div class="photo-thumbnails" id="photo-thumbnails"></div><div class="photo-toolbar"><div class="view-modes" aria-label="Режим просмотра"><button id="mode-photo" class="active" aria-pressed="true">Фото</button><button id="mode-360" aria-pressed="false">360°</button></div><span class="photo-count" id="photo-count">1 / 6</span><a href="#" class="detail-link" id="detail-link" aria-label="Рассмотреть работу в высоком качестве" title="Рассмотреть работу"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a></div><p class="rotation-note" id="rotation-note">Фотография работы</p></div><div class="product-copy"><p class="eyebrow">Владимир Гвоздев · Серия «Праздник»</p><h1>Снежинка</h1><p class="haiku">Авторская фигурка<br>из серии «Праздник»</p><div class="size-label">Высота фигурки</div><div class="sizes"><button class="selected" data-size="19" aria-pressed="true">19 см</button><button data-size="23" aria-pressed="false">23 см</button></div><p class="price" id="price">5 600 ₽</p><button class="purchase" id="purchase">Добавить в корзину</button><p class="delivery">Композитный материал, ручная роспись.<br>Подарочная упаковка.<br>До пункта СДЭК бесплатно. Отправка в течение трёх дней.</p><div class="cart-status" id="cart-status" aria-live="polite"></div></div></div></section><section class="recent-section" id="recently-viewed" hidden aria-labelledby="recent-title"><div class="container"><h2 id="recent-title">Вы недавно смотрели</h2><div class="recent-grid" id="recent-grid"></div></div></section></main><footer class="footer footer-reference" id="contacts">
 <div class="container">
 <div class="footer-reference-title">ГАЛЕРЕЯ ГРОМОВОЙ</div>
 <div class="footer-reference-middle"><p class="footer-reference-description">Современное искусство: скульптура, живопись, авторская художественная кукла</p><nav class="footer-socials" aria-label="Социальные сети"><span title="Ссылка будет добавлена">Telegram</span><span title="Ссылка будет добавлена">Instagram</span><span title="Ссылка будет добавлена">VK</span></nav></div>
 <div class="footer-reference-bottom"><nav class="footer-reference-nav" aria-label="Правовая информация"><a href="offer.html">Публичная оферта</a><a href="privacy.html">Политика конфиденциальности</a><a href="privacy.html#personal-data">Обработка персональных данных</a><a href="buyers.html">Доставка и возврат</a></nav><span class="footer-copyright">© 2026 Галерея Громовой</span></div>
-</div></footer><script>let photo=0,start=0,size=19;const photos=Array.from({length:6},(_,i)=>`assets/snezhinka/photo-${String(i+1).padStart(2,"0")}-showcase.webp`),works=[{"name": "Коломбина", "src": "assets/3e261e6db5223e6cc269.png", "url": "kolombina.html"}, {"name": "Зайчик", "src": "assets/f976b7fdc59bfcd17d23.png", "url": "zaychik.html"}, {"name": "Снежинка", "src": "assets/moryak/photo-01-showcase.webp", "url": "moryak.html"}, {"name": "Ангел", "src": "assets/angel/photo-01-showcase.webp", "url": "angel.html"}, {"name": "Снежинка", "src": "assets/df7c85a1d8f06b24dc3a.png", "url": "snezhinka.html"}, {"name": "Пьеро", "src": "assets/7dbca0cb8bb32a2267da.png", "url": "piero.html"}, {"name": "Девочка с единорогом", "src": "assets/01c236fb4b5b0c5e3fbf.png", "url": "unicorn.html"}, {"name": "Мальчик с лошадкой", "src": "assets/f2f78f6728b19d69c205.png", "url": "horse.html"}, {"name": "Мальчик с мишкой", "src": "assets/8d58b556cd603644dfa2.png", "url": "teddy.html"}];function showPhoto(){document.getElementById('main-photo').src=photos[photo];document.getElementById('main-photo').alt=`Снежинка, фотография ${photo+1} из ${photos.length}`;document.getElementById('photo-count').textContent=`${photo+1} / ${photos.length}`;}document.getElementById('photo-prev').onclick=()=>{photo=(photo+photos.length-1)%photos.length;showPhoto()};document.getElementById('photo-next').onclick=()=>{photo=(photo+1)%photos.length;showPhoto()};function showWorks(){const indices=[0,1,2].map(i=>(start+i)%9);document.getElementById('related-grid').innerHTML=indices.map(i=>`<figure class="related-item"><a href="${works[i].url}"><img src="${works[i].src}" alt="${works[i].name}"><figcaption>${works[i].name}</figcaption></a></figure>`).join('');document.getElementById('related-count').textContent=indices.map(i=>i+1).join(', ')+' из 9';}document.getElementById('works-prev').onclick=()=>{start=(start+8)%9;showWorks()};document.getElementById('works-next').onclick=()=>{start=(start+1)%9;showWorks()};showWorks();document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{size=Number(b.dataset.size);document.querySelectorAll('[data-size]').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',x===b)});document.getElementById('price').textContent=size===19?'5 600 ₽':'7 500 ₽';document.getElementById('cart-status').textContent=''});const readCart=()=>{try{return JSON.parse(localStorage.getItem('gallery-cart')||'[]')}catch(e){return []}};const updateBadge=()=>{document.querySelector('.badge').textContent=readCart().reduce((n,x)=>n+x.qty,0)};updateBadge();document.getElementById('purchase').onclick=()=>{const cart=readCart();const item=cart.find(x=>x.name==="Снежинка"&&x.size===size);if(item)item.qty++;else cart.push({name:"Снежинка",size,price:size===19?5600:7500,qty:1});localStorage.setItem('gallery-cart',JSON.stringify(cart));updateBadge();document.getElementById('cart-status').textContent="Снежинка"+', '+size+' см, добавлен в корзину';};document.querySelector('.menu-toggle')?.addEventListener('click',()=>document.querySelector('.main-nav').classList.toggle('open'));
+</div></footer><script>let photo=0,size=19;const photos=Array.from({length:6},(_,i)=>`assets/snezhinka/photo-${String(i+1).padStart(2,"0")}-showcase.webp`);function showPhoto(){document.getElementById('main-photo').src=photos[photo];document.getElementById('main-photo').alt=`Снежинка, фотография ${photo+1} из ${photos.length}`;document.getElementById('photo-count').textContent=`${photo+1} / ${photos.length}`;}document.getElementById('photo-prev').onclick=()=>{photo=(photo+photos.length-1)%photos.length;showPhoto()};document.getElementById('photo-next').onclick=()=>{photo=(photo+1)%photos.length;showPhoto()};document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{size=Number(b.dataset.size);document.querySelectorAll('[data-size]').forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',x===b)});document.getElementById('price').textContent=size===19?'5 600 ₽':'7 500 ₽';document.getElementById('cart-status').textContent=''});const readCart=()=>{try{return JSON.parse(localStorage.getItem('gallery-cart')||'[]')}catch(e){return []}};const updateBadge=()=>{document.querySelector('.badge').textContent=readCart().reduce((n,x)=>n+x.qty,0)};updateBadge();document.getElementById('purchase').onclick=()=>{const cart=readCart();const item=cart.find(x=>x.name==="Снежинка"&&x.size===size);if(item)item.qty++;else cart.push({name:"Снежинка",size,price:size===19?5600:7500,qty:1});localStorage.setItem('gallery-cart',JSON.stringify(cart));updateBadge();document.getElementById('cart-status').textContent="Снежинка"+', '+size+' см, добавлен в корзину';};document.querySelector('.menu-toggle')?.addEventListener('click',()=>document.querySelector('.main-nav').classList.toggle('open'));
 const view=document.querySelector('.photo-view');function setMode(rotation){view.classList.toggle('rotation',rotation);document.getElementById('mode-photo').classList.toggle('active',!rotation);document.getElementById('mode-360').classList.toggle('active',rotation);document.getElementById('mode-photo').setAttribute('aria-pressed',!rotation);document.getElementById('mode-360').setAttribute('aria-pressed',rotation);document.getElementById('rotation-note').innerHTML=rotation?'↔ Вращение пальцем или мышью<br>Серия 360° появится после фотосессии':'Фотография работы';}document.getElementById('mode-photo').onclick=()=>setMode(false);document.getElementById('mode-360').onclick=()=>setMode(true);document.getElementById('detail-link').onclick=e=>{
  e.preventDefault();const w=window.open('','_blank','width=1100,height=900');if(!w)return;
  w.document.write(`<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Снежинка · Рассмотреть работу</title><style>*{box-sizing:border-box}body{margin:0;background:#fff;color:#383936;font-family:Arial,sans-serif}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 24px;border-bottom:1px solid #eee}.toolbar p{margin:0;font-size:18px}.close{background:none;border:1px solid #aaa;padding:10px 16px;font-size:16px;cursor:pointer}.stage{display:grid;grid-template-columns:70px minmax(0,1fr) 70px;align-items:center;min-height:calc(100vh - 140px);gap:10px;padding:18px}.stage img{display:block;max-width:100%;max-height:calc(100vh - 180px);width:auto;height:auto;margin:auto;cursor:zoom-in}.arrow{border:0;background:none;font-size:36px;color:#383936;cursor:pointer;padding:15px 5px}.status{text-align:center;font-size:15px;padding:10px 15px 20px;color:#666}.image-wrap{overflow:auto;max-height:calc(100vh - 160px)}.zoom img{max-width:none;max-height:none;cursor:zoom-out}@media(max-width:600px){.stage{grid-template-columns:36px minmax(0,1fr) 36px;padding:8px;gap:4px}.toolbar{padding:12px}.toolbar p{font-size:16px}.close{font-size:14px}.arrow{font-size:28px}}</style><style>.cart-shade{position:fixed;inset:0;background:#0007;z-index:1000;opacity:0;visibility:hidden;transition:opacity .2s}.cart-shade.open{opacity:1;visibility:visible}.cart-drawer{position:fixed;inset:0 0 0 auto;width:min(460px,100%);background:#fbf8f1;color:#383936;z-index:1001;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding:28px}.cart-drawer.open{transform:none}.cart-drawer-header{display:flex;justify-content:space-between;align-items:center;gap:20px}.cart-drawer h2{font-size:30px;font-weight:400;margin:0}.cart-close{border:0;background:none;font-size:30px;cursor:pointer}.cart-items{flex:1;overflow:auto;margin:24px 0}.cart-row{padding:20px 0;border-bottom:1px solid #ded5c6;line-height:1.6}.cart-row strong{font-size:18px;font-weight:500}.cart-remove{border:0;background:none;color:#955363;padding:8px 0;cursor:pointer;font:inherit}.cart-total{font-size:24px;margin:10px 0 20px}.cart-note{font-size:14px;line-height:1.6;color:#747570}.cart-drawer button:focus-visible{outline:2px solid #955363;outline-offset:4px}</style><style id="footer-reference-final">
 .footer.footer-reference{background:#2d211b!important;color:#f5efe7!important;padding:64px 0 20px!important;font-family:'Montserrat',Arial,sans-serif}.footer-reference .container{max-width:none;width:auto;margin:0 2.55%}.footer-reference-title{font-size:24px!important;font-weight:700!important;line-height:1.35!important;letter-spacing:.01em;margin:0 0 16px!important}.footer-reference-middle{display:flex;align-items:center;justify-content:space-between;gap:24px}.footer-reference-description{margin:0!important;color:#a5a5a3!important;font-size:14px!important;line-height:1.6}.footer-socials{display:flex;gap:26px;white-space:nowrap;font-size:17px;font-weight:600}.footer-reference-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:94px}.footer-reference-nav{display:flex!important;flex-wrap:wrap;gap:12px 28px!important;border:0!important;padding:0!important;margin:0!important;font-size:12px!important;color:#8b8b89!important}.footer-reference-nav a{color:inherit!important}.footer-reference-nav a:hover{color:#fff!important}.footer-copyright{font-size:12px;color:#8b8b89;white-space:nowrap}@media(max-width:760px){.footer.footer-reference{padding:38px 0 24px!important}.footer-reference .container{margin:0 22px}.footer-reference-middle,.footer-reference-bottom{align-items:flex-start;flex-direction:column}.footer-reference-middle{gap:22px}.footer-reference-bottom{margin-top:44px;gap:26px}.footer-reference-title{font-size:22px!important}.footer-socials{font-size:15px}.footer-reference-nav{gap:16px 24px!important}}
 </style>
 <style id="approved-text-colors">.footer.footer-reference,.footer-reference-title,.footer-reference-description,.footer-reference-nav,.footer-reference-nav a,.footer-socials,.footer-copyright{color:#fff!important}.site-header,.site-header .brand,.site-header .main-nav a,.site-header .main-nav span,.site-header .header-actions button,.site-header .menu-toggle{color:#000!important}</style>
-</head><body><div class="toolbar"><p>Снежинка · Серия «Праздник»</p><button class="close" id="close">Закрыть ×</button></div><div class="stage"><button class="arrow" id="prev" aria-label="Предыдущая фотография">←</button><div class="image-wrap" id="image-wrap"><img id="image" alt="Снежинка"></div><button class="arrow" id="next" aria-label="Следующая фотография">→</button></div><div class="status" id="status"></div><script src="figurine-gallery.js?v=2"></script></body></html>`);w.document.close();
+</head><body><div class="toolbar"><p>Снежинка · Серия «Праздник»</p><button class="close" id="close">Закрыть ×</button></div><div class="stage"><button class="arrow" id="prev" aria-label="Предыдущая фотография">←</button><div class="image-wrap" id="image-wrap"><img id="image" alt="Снежинка"></div><button class="arrow" id="next" aria-label="Следующая фотография">→</button></div><div class="status" id="status"></div></body></html>`);w.document.close();
  let current=photo;const im=w.document.getElementById('image'),wrap=w.document.getElementById('image-wrap');
  const render=()=>{wrap.classList.remove('zoom');im.src=`assets/snezhinka/photo-${String(current+1).padStart(2,'0')}-large.webp`;im.alt=`Снежинка, фотография ${current+1} из ${photos.length}`;w.document.getElementById('status').textContent=`${current+1} / ${photos.length} · Нажми на фото для увеличения`;};
  const move=d=>{current=(current+d+photos.length)%photos.length;render();};
  w.document.getElementById('prev').onclick=()=>move(-1);w.document.getElementById('next').onclick=()=>move(1);w.document.getElementById('close').onclick=()=>w.close();im.onclick=()=>wrap.classList.toggle('zoom');w.document.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')move(-1);if(event.key==='ArrowRight')move(1);if(event.key==='Escape')w.close();});render();
 };
-</script><div class="cart-shade" id="cart-shade"></div><aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true" inert><div class="cart-drawer-header"><h2 id="cart-title">Корзина</h2><button class="cart-close" id="cart-close" aria-label="Закрыть корзину">×</button></div><div class="cart-items" id="drawer-items"></div><div class="cart-total" id="drawer-total"></div><p class="cart-note">Оформление заказа и оплата будут подключены перед запуском магазина.</p></aside><script>(()=>{const drawer=document.getElementById('cart-drawer'),shade=document.getElementById('cart-shade'),close=document.getElementById('cart-close');let previousFocus,scrollStyle;const read=()=>{try{return JSON.parse(localStorage.getItem('gallery-cart')||'[]')}catch(e){return []}};const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function render(){const items=read();document.getElementById('drawer-items').innerHTML=items.length?items.map((x,i)=>`<div class="cart-row"><strong>${escape(x.name)}</strong><div>${x.size} см · ${x.qty} шт.</div><div>${(x.price*x.qty).toLocaleString('ru-RU')} ₽</div><button class="cart-remove" data-remove="${i}">Убрать</button></div>`).join(''):'В корзине пока нет работ';document.getElementById('drawer-total').textContent=items.length?'Итого: '+items.reduce((n,x)=>n+x.price*x.qty,0).toLocaleString('ru-RU')+' ₽':'';document.querySelectorAll('.badge').forEach(b=>b.textContent=items.reduce((n,x)=>n+x.qty,0));document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{items.splice(Number(b.dataset.remove),1);localStorage.setItem('gallery-cart',JSON.stringify(items));render()})}function open(){previousFocus=document.activeElement;render();scrollStyle=document.body.style.overflow;document.body.style.overflow='hidden';drawer.inert=false;drawer.setAttribute('aria-hidden','false');drawer.classList.add('open');shade.classList.add('open');close.focus()}function hide(){drawer.classList.remove('open');shade.classList.remove('open');drawer.setAttribute('aria-hidden','true');drawer.inert=true;document.body.style.overflow=scrollStyle||'';previousFocus?.focus()}document.querySelectorAll('[aria-label="Корзина"],a[href="cart.html"]').forEach(b=>{b.removeAttribute('onclick');b.addEventListener('click',e=>{e.preventDefault();open()})});close.onclick=hide;shade.onclick=hide;document.addEventListener('keydown',e=>{if(!drawer.classList.contains('open'))return;if(e.key==='Escape')hide();if(e.key==='Tab'){const all=[...drawer.querySelectorAll('button,a')];const first=all[0],last=all[all.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});render();window.addEventListener('storage',render);})();</script><script>(()=>{const frame=document.querySelector('.photo-frame');if(!frame)return;const prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next');if(photos.length<2){prev.disabled=true;next.disabled=true;}frame.tabIndex=0;frame.setAttribute('aria-label','Фотографии работы. Стрелки влево и вправо переключают ракурсы');frame.addEventListener('keydown',e=>{if(document.querySelector('.photo-view').classList.contains('rotation'))return;if(e.key==='ArrowLeft'){e.preventDefault();prev.click()}if(e.key==='ArrowRight'){e.preventDefault();next.click()}});let x;frame.addEventListener('touchstart',e=>{x=e.touches[0].clientX},{passive:true});frame.addEventListener('touchend',e=>{if(x===undefined||document.querySelector('.photo-view').classList.contains('rotation'))return;const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>45)(d>0?prev:next).click();x=undefined},{passive:true});})();</script><script>(()=>{photos.push(photos[photos.length-1]);const render=showPhoto;showPhoto=function(){render();const rotation=photo===photos.length-1;setMode(rotation);document.getElementById('photo-count').textContent=rotation?'360° · '+(photo+1)+' / '+photos.length:(photo+1)+' / '+photos.length;};document.getElementById('photo-prev').disabled=false;document.getElementById('photo-next').disabled=false;showPhoto();})();</script><dialog class="collection-entry" id="collection-entry" aria-labelledby="collection-entry-title"><h2 id="collection-entry-title">Моя коллекция</h2><p>Здесь ты сможешь видеть собранных героев и выбирать тех, кого ещё не хватает.</p><p>Вход и сохранение коллекции появятся после подключения личного кабинета.</p><form method="dialog"><button>Понятно</button></form></dialog><script>(()=>{const dialog=document.getElementById('collection-entry');document.getElementById('collection-open').onclick=()=>dialog.showModal();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});})();</script><script src="recently-viewed.js?v=37" data-product="snezhinka.html"></script><script type="text/plain" id="unified-card-gallery">
-(()=>{
-const strip=document.getElementById('photo-thumbnails'),view=document.querySelector('.photo-view');
-if(!strip||!Array.isArray(photos))return;
-const render=()=>{
- strip.replaceChildren();
- photos.forEach((src,i)=>{
-  if(i===photo)return;
-  const b=document.createElement('button');b.type='button';b.className='photo-thumbnail';b.setAttribute('aria-label','Фото '+(i+1));
-  const im=document.createElement('img');im.src=src;im.alt='Ракурс '+(i+1);
-  const t=document.createElement('span');t.textContent=String(i+1).padStart(2,'0');b.append(im,t);
-  b.onclick=()=>{photo=i;showPhoto();render()};strip.append(b);
- });
- const spin=document.createElement('button');spin.type='button';spin.className='photo-thumbnail photo-thumbnail-360';spin.textContent='360°';spin.disabled=true;spin.title='Круговая фотосессия ещё не готова';strip.append(spin);
-};
-for(const id of ['photo-prev','photo-next']){
- const el=document.getElementById(id),old=el.onclick;el.onclick=e=>{old?.call(el,e);render()};
-}
-document.getElementById('mode-360').disabled=true;
-render();
-})();
-</script><script type="text/plain" id="snezhinka-six-spin-20261023">
-(()=>{
-const view=document.querySelector('.product-hero .photo-view'),frame=view?.querySelector('.photo-frame'),img=document.getElementById('main-photo'),strip=document.getElementById('photo-thumbnails'),count=document.getElementById('photo-count'),photoButton=document.getElementById('mode-photo'),spinButton=document.getElementById('mode-360'),prev=document.getElementById('photo-prev'),next=document.getElementById('photo-next'),zoom=document.getElementById('detail-link'),note=document.getElementById('rotation-note');
-if(!view||!frame||!img||!strip||!count||!photoButton||!spinButton||!zoom||!photos)return;
-view.classList.add('snezhinka-live');
-const spins=Array.from({length:24},(_,i)=>'assets/snezhinka/spin-'+String(i+1).padStart(2,'0')+'.webp');
-const sourceIndices=[1,4,7,13,19,22];
-let stillIndex=0,spinIndex=0,spinMode=false,dragging=false,lastX=0,accum=0,touchX=null;
-img.draggable=false;
-function paint(){
- view.classList.toggle('rotation',spinMode);photoButton.classList.toggle('active',!spinMode);spinButton.classList.toggle('active',spinMode);
- photoButton.setAttribute('aria-pressed',String(!spinMode));spinButton.setAttribute('aria-pressed',String(spinMode));
- img.src=spinMode?spins[spinIndex]:photos[stillIndex];
- img.alt=spinMode?'Снежинка, кадр 360° '+(spinIndex+1)+' из 24':'Снежинка, фото '+(stillIndex+1)+' из 6';
- count.hidden=spinMode;count.textContent=spinMode?'':(stillIndex+1)+' / 6';
- note.textContent=spinMode?'Вращай фигурку пальцем или мышью':'Шесть ракурсов работы';
- strip.replaceChildren();
- if(!spinMode)photos.forEach((src,i)=>{if(i===stillIndex)return;let b=document.createElement('button');b.type='button';b.className='photo-thumbnail';b.setAttribute('aria-label','Ракурс '+(i+1));let image=document.createElement('img');image.src=src;image.alt='Ракурс '+(i+1);b.append(image);b.addEventListener('click',()=>{stillIndex=i;spinMode=false;paint()});strip.append(b)});
-}
-photoButton.onclick=()=>{spinMode=false;paint()};
-spinButton.onclick=()=>{spinMode=true;spinIndex=sourceIndices[stillIndex]-1;paint();spins.forEach(s=>{let im=new Image();im.src=s})};
-prev.onclick=()=>{if(!spinMode){stillIndex=(stillIndex+5)%6;paint()}};
-next.onclick=()=>{if(!spinMode){stillIndex=(stillIndex+1)%6;paint()}};
-function rotate(delta){accum+=delta;const steps=Math.trunc(accum/12);if(steps){spinIndex=((spinIndex-steps)%24+24)%24;accum-=steps*12;paint()}}
-frame.addEventListener('pointerdown',e=>{if(!spinMode||e.pointerType==='touch'||e.target.closest('button'))return;dragging=true;lastX=e.clientX;accum=0;try{frame.setPointerCapture(e.pointerId)}catch(_){}e.preventDefault()});
-frame.addEventListener('pointermove',e=>{if(!spinMode||!dragging)return;rotate(e.clientX-lastX);lastX=e.clientX});
-frame.addEventListener('pointerup',()=>dragging=false);frame.addEventListener('pointercancel',()=>dragging=false);
-frame.addEventListener('touchstart',e=>{if(!spinMode||!e.touches.length)return;touchX=e.touches[0].clientX;accum=0},{passive:true});
-frame.addEventListener('touchmove',e=>{if(!spinMode||touchX===null||!e.touches.length)return;e.preventDefault();let x=e.touches[0].clientX;rotate(x-touchX);touchX=x},{passive:false});
-frame.addEventListener('touchend',()=>touchX=null,{passive:true});
-zoom.onclick=e=>{e.preventDefault();const w=window.open('','_blank','width=1120,height=940');if(!w)return;w.document.write('<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Снежинка — крупный план</title><style>body{margin:0;background:#fbf8f1;display:grid;place-items:center;height:100vh}img{max-width:98vw;max-height:98vh;object-fit:contain}</style></head><body><img src="'+new URL('assets/snezhinka/photo-'+String(stillIndex+1).padStart(2,'0')+'-large.webp',location.href).href+'"></body></html>');w.document.close()};
-paint();
-})();
-</script></body></html>
+</script><div class="cart-shade" id="cart-shade"></div><aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true" inert><div class="cart-drawer-header"><h2 id="cart-title">Корзина</h2><button class="cart-close" id="cart-close" aria-label="Закрыть корзину">×</button></div><div class="cart-items" id="drawer-items"></div><div class="cart-total" id="drawer-total"></div><p class="cart-note">Оформление заказа и оплата будут подключены перед запуском магазина.</p></aside><script>(()=>{const drawer=document.getElementById('cart-drawer'),shade=document.getElementById('cart-shade'),close=document.getElementById('cart-close');let previousFocus,scrollStyle;const read=()=>{try{return JSON.parse(localStorage.getItem('gallery-cart')||'[]')}catch(e){return []}};const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function render(){const items=read();document.getElementById('drawer-items').innerHTML=items.length?items.map((x,i)=>`<div class="cart-row"><strong>${escape(x.name)}</strong><div>${x.size} см · ${x.qty} шт.</div><div>${(x.price*x.qty).toLocaleString('ru-RU')} ₽</div><button class="cart-remove" data-remove="${i}">Убрать</button></div>`).join(''):'В корзине пока нет работ';document.getElementById('drawer-total').textContent=items.length?'Итого: '+items.reduce((n,x)=>n+x.price*x.qty,0).toLocaleString('ru-RU')+' ₽':'';document.querySelectorAll('.badge').forEach(b=>b.textContent=items.reduce((n,x)=>n+x.qty,0));document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{items.splice(Number(b.dataset.remove),1);localStorage.setItem('gallery-cart',JSON.stringify(items));render()})}function open(){previousFocus=document.activeElement;render();scrollStyle=document.body.style.overflow;document.body.style.overflow='hidden';drawer.inert=false;drawer.setAttribute('aria-hidden','false');drawer.classList.add('open');shade.classList.add('open');close.focus()}function hide(){drawer.classList.remove('open');shade.classList.remove('open');drawer.setAttribute('aria-hidden','true');drawer.inert=true;document.body.style.overflow=scrollStyle||'';previousFocus?.focus()}document.querySelectorAll('[aria-label="Корзина"],a[href="cart.html"]').forEach(b=>{b.removeAttribute('onclick');b.addEventListener('click',e=>{e.preventDefault();open()})});close.onclick=hide;shade.onclick=hide;document.addEventListener('keydown',e=>{if(!drawer.classList.contains('open'))return;if(e.key==='Escape')hide();if(e.key==='Tab'){const all=[...drawer.querySelectorAll('button,a')];const first=all[0],last=all[all.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});render();window.addEventListener('storage',render);})();</script><dialog class="collection-entry" id="collection-entry" aria-labelledby="collection-entry-title"><h2 id="collection-entry-title">Моя коллекция</h2><p>Здесь ты сможешь видеть собранных героев и выбирать тех, кого ещё не хватает.</p><p>Вход и сохранение коллекции появятся после подключения личного кабинета.</p><form method="dialog"><button>Понятно</button></form></dialog><script>(()=>{const dialog=document.getElementById('collection-entry');document.getElementById('collection-open').onclick=()=>dialog.showModal();dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});})();</script><script src="figurine-gallery.js?v=21"></script></body></html>
