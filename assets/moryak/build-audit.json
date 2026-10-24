@@ -12,7 +12,7 @@
  ],
  "config": {
   "home_frame": 2,
-  "y_head": 1490,
+  "y_head": 1139,
   "y_base": 5397,
   "stills": [
    1,
@@ -47,7 +47,7 @@
    23,
    24
   ],
-  "note": "source 9.png is a byte-identical copy of 8.png (one real angle missing) -> 23 real frames; y_head under the cap estimated from face proportions"
+  "note": "source 9.png is a byte-identical copy of 8.png (one real angle missing) -> 23 real frames; y_head under the cap estimated from face proportions (crown-to-eyes = eyes-to-chin, measured on angel, teddy, angel-svirel); was 1490 — figure looked larger than the rest"
  },
  "frame_bboxes": {
   "1": [
@@ -195,21 +195,21 @@
    257,
    771
   ],
-  "H_body_source": 3907,
-  "k": 0.174047,
+  "H_body_source": 4258,
+  "k": 0.159699,
   "H_body_output": 680.0,
-  "y_head_output": 70.1,
-  "y_base_output": 750.1,
+  "y_head_output": 40.3,
+  "y_base_output": 720.3,
   "silhouette_bbox_output": [
-   29,
-   12,
-   228,
-   758
+   37,
+   43,
+   220,
+   727
   ],
-  "top_margin": 12,
-  "bottom_margin": 13,
-  "left_margin": 29,
-  "right_margin": 29
+  "top_margin": 43,
+  "bottom_margin": 44,
+  "left_margin": 37,
+  "right_margin": 37
  },
  "recent_thumb": {
   "file": "recent-thumb.webp",
@@ -217,21 +217,21 @@
    230,
    551
   ],
-  "H_body_source": 3907,
-  "k": 0.122856,
+  "H_body_source": 4258,
+  "k": 0.112729,
   "H_body_output": 480.0,
-  "y_head_output": 53.0,
-  "y_base_output": 533.0,
+  "y_head_output": 32.1,
+  "y_base_output": 512.1,
   "silhouette_bbox_output": [
-   44,
-   12,
-   185,
-   538
+   50,
+   34,
+   179,
+   517
   ],
-  "top_margin": 12,
-  "bottom_margin": 13,
-  "left_margin": 44,
-  "right_margin": 45
+  "top_margin": 34,
+  "bottom_margin": 34,
+  "left_margin": 50,
+  "right_margin": 51
  },
  "spin": {
   "canvas": [
