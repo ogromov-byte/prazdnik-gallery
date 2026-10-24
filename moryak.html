@@ -415,27 +415,31 @@ body,.collection-section,.buyers-note,.footer{background:var(--paper)}
 .product-hero .photo-view.canonical-figurine.rotation .photo-count{display:none!important}
 @media(max-width:760px){.product-hero .photo-view.canonical-figurine .photo-frame{height:510px!important}.product-hero .photo-view.canonical-figurine #photo-thumbnails .photo-thumbnail{height:84px!important}}
 </style><style id="piero-360-full-stage-20261023">
-/* 360 occupies the five thumbnails' freed space; toolbar stays in place. */
+/* Unified 360 stage: the complete prepared frame stays visible without CSS scale or crop.
+   Desktop image display height remains 900px for the approved Piero reference. */
 @media(min-width:761px){
  .product-hero .photo-view.canonical-figurine.rotation .photo-frame{
-   height:850px!important;min-height:850px!important;overflow:hidden!important;
+  height:900px!important;min-height:900px!important;overflow:visible!important;
  }
  .product-hero .photo-view.canonical-figurine.rotation .photo-frame #main-photo{
-   height:850px!important;max-height:none!important;width:auto!important;
-   max-width:none!important;object-fit:contain!important;
-   transform:scale(1.058824)!important;transform-origin:center center!important;
+  height:900px!important;max-height:none!important;width:auto!important;
+  max-width:none!important;flex:0 0 auto!important;object-fit:contain!important;
+  transform:none!important;
  }
  .product-hero .photo-view.canonical-figurine.rotation #photo-thumbnails{display:none!important}
 }
 @media(max-width:760px){
- .product-hero .photo-view.canonical-figurine.rotation .photo-frame{height:600px!important;min-height:600px!important;overflow:hidden!important}
+ .product-hero .photo-view.canonical-figurine.rotation .photo-frame{
+  height:648px!important;min-height:648px!important;overflow:visible!important;
+ }
  .product-hero .photo-view.canonical-figurine.rotation .photo-frame #main-photo{
-  height:600px!important;max-height:none!important;transform:scale(1.08)!important;transform-origin:center center!important
+  height:648px!important;max-height:none!important;width:auto!important;
+  max-width:none!important;flex:0 0 auto!important;object-fit:contain!important;
+  transform:none!important;
  }
 }
 .product-hero .photo-view.canonical-figurine #photo-thumbnails[hidden]{display:none!important}
 .product-hero .photo-view.canonical-figurine.rotation .photo-toolbar{margin-top:0!important}
-.product-hero .photo-view.canonical-figurine.rotation #rotation-note{display:none!important}
 .product-hero .photo-view.canonical-figurine.rotation #rotation-note{display:none!important}
 </style><style id="piero-view-mode-contrast">
 /* Current mode is a quiet label; the other mode is the clear clickable action. */
