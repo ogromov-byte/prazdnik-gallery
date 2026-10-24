@@ -7,7 +7,7 @@ const base='assets/'+slug+'/';
 const source=slug==='moryak'?[1,4,7,12,18,21]:[1,4,7,13,19,22];
 const spinCount=slug==='moryak'?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
-const stills=source.map((frame,i)=>slug==='piero'?base+'spin-'+String(frame).padStart(2,'0')+'.webp':base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp');
+const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-portrait':''));
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
 const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
 function pieroPreview(img,frame){
@@ -176,7 +176,7 @@ img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 
 // Only approved, actually published figurines participate in viewing history.
-const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp'}};
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-480'}};
 try{
  const key='prazdnik-figurine-recent';
  const old=JSON.parse(localStorage.getItem(key)||'[]');
