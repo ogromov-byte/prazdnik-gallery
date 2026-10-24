@@ -9,7 +9,7 @@ const spinCount=slug==='moryak'?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
 const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-portrait':''));
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
-const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp');
+const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+(slug==='moryak'?'?v=20261024-portrait360':''));
 function pieroPreview(img,frame){
  const url=spins[frame-1],raw=new Image();
  raw.onload=()=>{
