@@ -145,8 +145,11 @@ def main():
 
     # 1) studio-home and recent-thumb — measured body height
     home = frames[cfg["home_frame"]]
-    audit["studio_home"] = home_image(home, cfg, 680, (257, 771), out / "studio-home.webp")
-    audit["recent_thumb"] = home_image(home, cfg, 480, (230, 551), out / "recent-thumb.webp")
+    # canvases: standard 257x771 / 230x551; Zaychik's ears need a taller working area (agreed exception)
+    home_canvas = tuple(cfg.get("home_canvas", (257, 771)))
+    recent_canvas = tuple(cfg.get("recent_canvas", (230, 551)))
+    audit["studio_home"] = home_image(home, cfg, 680, home_canvas, out / "studio-home.webp")
+    audit["recent_thumb"] = home_image(home, cfg, 480, recent_canvas, out / "recent-thumb.webp")
 
     if "--home-only" in sys.argv:
         prev = out / "build-audit.json"
