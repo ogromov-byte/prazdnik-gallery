@@ -161,16 +161,8 @@ def main():
         print(json.dumps({k: audit[k] for k in ("studio_home", "recent_thumb")}, ensure_ascii=False, indent=1))
         return
 
-    # 2) 360° — one fixed transform for all 24 frames (camera and turntable axis fixed)
-    k_spin = (960 - 2 * 50) / (U[3] - U[1])
-    for i, n in enumerate(spin_frames, 1):
-        place(frames[n], U, k_spin, (720, 960), 50).save(
-            out / f"spin-{i:02d}.webp", "WEBP", quality=84, method=6)
-    audit["spin"] = {"canvas": [720, 960], "k": round(k_spin, 6), "top": 50,
-                     "count": len(spin_frames), "source_frames": spin_frames,
-                     "union_height_output": round((U[3] - U[1]) * k_spin, 1)}
-
-    # 3) six card views + loupe — same fixed transform, larger figure
+    # 2) six card views + loupe and 3) 360° — ONE fixed transform shared by stills and spins,
+    #    so switching «Фото» -> «360°» never changes the figure's size or position.
     k_show = (960 - 2 * 18) / (U[3] - U[1])
     k_large = k_show * 1086 / 720
     for i, n in enumerate(cfg["stills"], 1):
@@ -178,6 +170,12 @@ def main():
             out / f"photo-{i:02d}-showcase.webp", "WEBP", quality=88, method=6)
         place(frames[n], U, k_large, (1086, 1448), round(18 * 1086 / 720)).save(
             out / f"photo-{i:02d}-large.webp", "WEBP", quality=90, method=6)
+    for i, n in enumerate(spin_frames, 1):
+        place(frames[n], U, k_show, (720, 960), 18).save(
+            out / f"spin-{i:02d}.webp", "WEBP", quality=84, method=6)
+    audit["spin"] = {"canvas": [720, 960], "k": round(k_show, 6), "top": 18,
+                     "count": len(spin_frames), "source_frames": spin_frames,
+                     "same_transform_as_stills": True}
     audit["stills"] = {"frames": cfg["stills"], "angles": ["0°", "+45°", "+90°", "180°", "−90°", "−45°"],
                        "showcase_k": round(k_show, 6), "large_k": round(k_large, 6)}
     (out / "build-audit.json").write_text(json.dumps(audit, ensure_ascii=False, indent=1))

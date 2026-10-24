@@ -219,8 +219,8 @@
    720,
    960
   ],
-  "k": 0.179728,
-  "top": 50,
+  "k": 0.193103,
+  "top": 18,
   "count": 24,
   "source_frames": [
    1,
@@ -248,7 +248,7 @@
    23,
    24
   ],
-  "union_height_output": 860.0
+  "same_transform_as_stills": true
  },
  "stills": {
   "frames": [

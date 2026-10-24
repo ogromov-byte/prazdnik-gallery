@@ -7,9 +7,9 @@ const base='assets/'+slug+'/';
 const source=slug==='moryak'?[1,4,7,12,18,21]:slug==='snezhinka'?[1,4,7,13,19,21]:[1,4,7,13,19,22];
 const spinCount=(slug==='moryak'||slug==='snezhinka')?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
-const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-std':slug==='piero'?'?v=20261024-fix3':''));
-const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
-const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+(slug==='moryak'?'?v=20261024-std':''));
+const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+'?v=20261024-360');
+const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp?v=20261024-360');
+const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+'?v=20261024-360');
 function pieroPreview(img,frame){
  const url=spins[frame-1],raw=new Image();
  raw.onload=()=>{
@@ -124,8 +124,10 @@ function render(){
  if(note)note.textContent=mode==='360'?'Поверни фигурку мышью или пальцем':'Шесть ракурсов работы';
  fitImage();
 }
-modePhoto.onclick=()=>{mode='photo';render()};
-mode360.onclick=()=>{mode='360';rotation=source[current]-1;render();spins.forEach(s=>{const im=new Image();im.src=s})};
+function whenLoaded(url,go){const im=new Image();im.src=url;if(im.complete&&im.naturalWidth)go();else{im.onload=go;im.onerror=go}}
+/* Switch views only after the target picture is decoded: the old picture never shows inside the new frame size. */
+modePhoto.onclick=()=>{if(mode==='photo')return;whenLoaded(stills[current],()=>{mode='photo';render()})};
+mode360.onclick=()=>{if(mode==='360')return;const r=source[current]-1;whenLoaded(spins[r],()=>{mode='360';rotation=r;render();spins.forEach(s=>{const im=new Image();im.src=s})})};
 if(prev)prev.onclick=()=>{if(mode==='photo'){current=(current+5)%6;render()}};
 if(next)next.onclick=()=>{if(mode==='photo'){current=(current+1)%6;render()}};
 function rotate(dx){delta+=dx;const steps=Math.trunc(delta/12);if(steps){rotation=((rotation-steps)%spinCount+spinCount)%spinCount;delta-=steps*12;render()}}
