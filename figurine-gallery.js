@@ -7,7 +7,7 @@ const base='assets/'+slug+'/';
 const source=slug==='moryak'?[1,4,7,12,18,21]:slug==='snezhinka'?[1,4,7,13,19,21]:[1,4,7,13,19,22];
 const spinCount=(slug==='moryak'||slug==='snezhinka')?23:24;
 const angle=['0°','45°','90°','180°','−90°','−45°'];
-const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-std':''));
+const stills=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-showcase.webp'+(slug==='moryak'?'?v=20261024-std':slug==='piero'?'?v=20261024-fix3':''));
 const large=source.map((_,i)=>base+'photo-'+String(i+1).padStart(2,'0')+'-large.webp');
 const spins=Array.from({length:spinCount},(_,i)=>base+'spin-'+String(i+1).padStart(2,'0')+'.webp'+(slug==='moryak'?'?v=20261024-std':''));
 function pieroPreview(img,frame){
