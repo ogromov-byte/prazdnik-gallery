@@ -176,7 +176,7 @@ img.addEventListener('load',fitImage);
 window.addEventListener('resize',()=>{if(img.complete)fitImage()},{passive:true});
 
 // Only approved, actually published figurines participate in viewing history.
-const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-480'}};
+const recentKnown={piero:{name:'Пьеро',url:'piero.html',image:'assets/piero/recent-thumb.webp'},moryak:{name:'Моряк',url:'moryak.html',image:'assets/moryak/recent-thumb.webp?v=20261024-480'},unicorn:{name:'Девочка с единорогом',url:'unicorn.html',image:'assets/unicorn/recent-thumb.webp'}};
 try{
  const key='prazdnik-figurine-recent';
  const old=JSON.parse(localStorage.getItem(key)||'[]');
