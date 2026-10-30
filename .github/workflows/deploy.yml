@@ -1,0 +1,72 @@
+name: Выкладка на Beget
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Две выкладки одновременно не запускаем
+concurrency:
+  group: deploy-beget
+  cancel-in-progress: false
+
+env:
+  # Что выкладываем. Пока сайт не открыт, выкладываем только заглушку.
+  # Переключать на сайт отдельным коммитом, когда ООО будет готово.
+  DEPLOY_DIR: stub
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка секретов
+        env:
+          BEGET_FTP_HOST: ${{ secrets.BEGET_FTP_HOST }}
+          BEGET_FTP_USER: ${{ secrets.BEGET_FTP_USER }}
+          BEGET_FTP_PASSWORD: ${{ secrets.BEGET_FTP_PASSWORD }}
+          BEGET_FTP_DIR: ${{ secrets.BEGET_FTP_DIR }}
+        run: |
+          missing=""
+          for name in BEGET_FTP_HOST BEGET_FTP_USER BEGET_FTP_PASSWORD BEGET_FTP_DIR; do
+            [ -z "${!name}" ] && missing="$missing $name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Не заданы секреты:$missing (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
+          # Защита от удаления файлов не в той папке
+          case "$BEGET_FTP_DIR" in
+            */public_html|*/public_html/) ;;
+            *) echo "::error::BEGET_FTP_DIR должен заканчиваться на /public_html"; exit 1 ;;
+          esac
+
+      - name: Проверка noindex у заглушки
+        if: env.DEPLOY_DIR == 'stub'
+        run: |
+          grep -q 'name="robots" content="noindex' stub/index.html
+          grep -q '^Disallow: /$' stub/robots.txt
+
+      - name: Установка lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Выкладка по FTP
+        env:
+          BEGET_FTP_HOST: ${{ secrets.BEGET_FTP_HOST }}
+          BEGET_FTP_USER: ${{ secrets.BEGET_FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.BEGET_FTP_PASSWORD }}
+          BEGET_FTP_DIR: ${{ secrets.BEGET_FTP_DIR }}
+        run: |
+          # Пароль передаётся через переменную окружения, а не в командной строке.
+          # ftp:ssl-force: пароль не уйдёт открытым текстом, если сервер не даст TLS.
+          lftp -u "$BEGET_FTP_USER" --env-password "$BEGET_FTP_HOST" <<EOF
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate yes
+          set net:max-retries 2
+          set net:timeout 30
+          mirror --reverse --delete --verbose --exclude-glob .well-known/ "$DEPLOY_DIR/" "${BEGET_FTP_DIR%/}/"
+          bye
+          EOF

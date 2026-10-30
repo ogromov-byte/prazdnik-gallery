@@ -1,0 +1,4 @@
+# Заглушка: запрещаем индексацию любых файлов на домене
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
